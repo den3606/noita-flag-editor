@@ -23,7 +23,7 @@ const click = async (event: Event, settings: Settings): Promise<void> => {
         await writeTextFile(orbFilePath, "why are you looking here");
         await writeTextFile(flagFilePath, "why are you looking here");
       } else {
-        if (await exists(orbFileName)) {
+        if (await exists(orbFilePath)) {
           await removeFile(orbFilePath);
         }
 

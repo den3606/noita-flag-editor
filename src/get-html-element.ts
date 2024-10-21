@@ -1,89 +1,97 @@
-import type { OrbSecret, Secret } from "./interfaces/noita";
+import type {
+  OrbCardUnlockedFlags,
+  OrbSecretElementMap,
+  CardUnlockedFlags,
+  SecretElementMap,
+} from "./interfaces/noita";
 
-export const getOrbSecretElements = (): Map<OrbSecret, HTMLInputElement> => {
+export const getOrbSecretElements = (): OrbSecretElementMap => {
   // orb secret checkbox
-  const orb00 = document.querySelector("#orb-00") as HTMLInputElement;
-  const orb01 = document.querySelector("#orb-01") as HTMLInputElement;
-  const orb02 = document.querySelector("#orb-02") as HTMLInputElement;
-  const orb03 = document.querySelector("#orb-03") as HTMLInputElement;
-  const orb04 = document.querySelector("#orb-04") as HTMLInputElement;
-  const orb05 = document.querySelector("#orb-05") as HTMLInputElement;
-  const orb06 = document.querySelector("#orb-06") as HTMLInputElement;
-  const orb07 = document.querySelector("#orb-07") as HTMLInputElement;
-  const orb08 = document.querySelector("#orb-08") as HTMLInputElement;
-  const orb09 = document.querySelector("#orb-09") as HTMLInputElement;
-  const orb10 = document.querySelector("#orb-10") as HTMLInputElement;
+  const orb00 = document.querySelector("#card_unlocked_sea_lava") as HTMLInputElement;
+  const orb01 = document.querySelector("#card_unlocked_crumbling_earth") as HTMLInputElement;
+  const orb02 = document.querySelector("#card_unlocked_tentacle") as HTMLInputElement;
+  const orb03 = document.querySelector("#card_unlocked_nuke") as HTMLInputElement;
+  const orb04 = document.querySelector("#card_unlocked_necromancy") as HTMLInputElement;
+  const orb05 = document.querySelector("#card_unlocked_bomb_holy") as HTMLInputElement;
+  const orb06 = document.querySelector("#card_unlocked_spiral_shot") as HTMLInputElement;
+  const orb07 = document.querySelector("#card_unlocked_cloud_thunder") as HTMLInputElement;
+  const orb08 = document.querySelector("#card_unlocked_firework") as HTMLInputElement;
+  const orb09 = document.querySelector("#card_unlocked_exploding_deer") as HTMLInputElement;
+  const orb10 = document.querySelector("#card_unlocked_material_cement") as HTMLInputElement;
 
-  return new Map<OrbSecret, HTMLInputElement>([
-    ["orb00", orb00],
-    ["orb01", orb01],
-    ["orb02", orb02],
-    ["orb03", orb03],
-    ["orb04", orb04],
-    ["orb05", orb05],
-    ["orb06", orb06],
-    ["orb07", orb07],
-    ["orb08", orb08],
-    ["orb09", orb09],
-    ["orb10", orb10],
+  return new Map<OrbCardUnlockedFlags, HTMLInputElement>([
+    ["card_unlocked_sea_lava", orb00],
+    ["card_unlocked_crumbling_earth", orb01],
+    ["card_unlocked_tentacle", orb02],
+    ["card_unlocked_nuke", orb03],
+    ["card_unlocked_necromancy", orb04],
+    ["card_unlocked_bomb_holy", orb05],
+    ["card_unlocked_spiral_shot", orb06],
+    ["card_unlocked_cloud_thunder", orb07],
+    ["card_unlocked_firework", orb08],
+    ["card_unlocked_exploding_deer", orb09],
+    ["card_unlocked_material_cement", orb10],
   ]);
 };
 
-export const getSecretElements = (): Map<Secret, HTMLInputElement> => {
+export const getSecretElements = (): SecretElementMap => {
   // secret checkbox
-  const touchGrass = document.querySelector("#secret-touch-grass") as HTMLInputElement;
-  const blackHole = document.querySelector("#secret-black-hole") as HTMLInputElement;
-  const bombHolyGiga = document.querySelector("#secret-bomb-holy-giga") as HTMLInputElement;
-  const cessation = document.querySelector("#secret-cessation") as HTMLInputElement;
-  const destruction = document.querySelector("#secret-destruction") as HTMLInputElement;
-  const divide = document.querySelector("#secret-divide") as HTMLInputElement;
-  const dragon = document.querySelector("#secret-dragon") as HTMLInputElement;
-  const duplicate = document.querySelector("#secret-duplicate") as HTMLInputElement;
-  const everything = document.querySelector("#secret-everything") as HTMLInputElement;
-  const fish = document.querySelector("#secret-fish") as HTMLInputElement;
-  const funky = document.querySelector("#secret-funky") as HTMLInputElement;
-  const homingWand = document.querySelector("#secret-homing-wand") as HTMLInputElement;
-  const kantele = document.querySelector("#secret-kantele") as HTMLInputElement;
-  const maggot = document.querySelector("#secret-maggot") as HTMLInputElement;
-  const maths = document.querySelector("#secret-maths") as HTMLInputElement;
-  const mestari = document.querySelector("#secret-mestari") as HTMLInputElement;
-  const musicbox = document.querySelector("#secret-musicbox") as HTMLInputElement;
-  const nukegiga = document.querySelector("#secret-nukegiga") as HTMLInputElement;
-  const ocarina = document.querySelector("#secret-ocarina") as HTMLInputElement;
-  const paint = document.querySelector("#secret-paint") as HTMLInputElement;
-  const piss = document.querySelector("#secret-piss") as HTMLInputElement;
-  const polymorph = document.querySelector("#secret-polymorph") as HTMLInputElement;
-  const pyramid = document.querySelector("#secret-pyramid") as HTMLInputElement;
-  const rain = document.querySelector("#secret-rain") as HTMLInputElement;
-  const rainbowTrail = document.querySelector("#secret-rainbow-trail") as HTMLInputElement;
-  const seaMimic = document.querySelector("#secret-sea-mimic") as HTMLInputElement;
 
-  return new Map<Secret, HTMLInputElement>([
-    ["touchGrass", touchGrass],
-    ["blackHole", blackHole],
-    ["bombHolyGiga", bombHolyGiga],
-    ["cessation", cessation],
-    ["destruction", destruction],
-    ["divide", divide],
-    ["dragon", dragon],
-    ["duplicate", duplicate],
-    ["everything", everything],
-    ["fish", fish],
-    ["funky", funky],
-    ["homingWand", homingWand],
-    ["kantele", kantele],
-    ["maggot", maggot],
-    ["maths", maths],
-    ["mestari", mestari],
-    ["musicbox", musicbox],
-    ["nukegiga", nukegiga],
-    ["ocarina", ocarina],
-    ["paint", paint],
-    ["piss", piss],
-    ["polymorph", polymorph],
-    ["pyramid", pyramid],
-    ["rain", rain],
-    ["rainbowTrail", rainbowTrail],
-    ["seaMimic", seaMimic],
+  const touchGrass = document.querySelector("#card_unlocked_touch_grass") as HTMLInputElement;
+  const alchemy = document.querySelector("#card_unlocked_alchemy") as HTMLInputElement;
+  const blackHole = document.querySelector("#card_unlocked_black_hole") as HTMLInputElement;
+  const bombHolyGiga = document.querySelector("#card_unlocked_bomb_holy_giga") as HTMLInputElement;
+  const cessation = document.querySelector("#card_unlocked_cessation") as HTMLInputElement;
+  const destruction = document.querySelector("#card_unlocked_destruction") as HTMLInputElement;
+  const divide = document.querySelector("#card_unlocked_divide") as HTMLInputElement;
+  const dragon = document.querySelector("#card_unlocked_dragon") as HTMLInputElement;
+  const duplicate = document.querySelector("#card_unlocked_duplicate") as HTMLInputElement;
+  const everything = document.querySelector("#card_unlocked_everything") as HTMLInputElement;
+  const fish = document.querySelector("#card_unlocked_fish") as HTMLInputElement;
+  const funky = document.querySelector("#card_unlocked_funky") as HTMLInputElement;
+  const homingWand = document.querySelector("#card_unlocked_homing_wand") as HTMLInputElement;
+  const kantele = document.querySelector("#card_unlocked_kantele") as HTMLInputElement;
+  const maggot = document.querySelector("#card_unlocked_maggot") as HTMLInputElement;
+  const maths = document.querySelector("#card_unlocked_maths") as HTMLInputElement;
+  const mestari = document.querySelector("#card_unlocked_mestari") as HTMLInputElement;
+  const musicbox = document.querySelector("#card_unlocked_musicbox") as HTMLInputElement;
+  const nukegiga = document.querySelector("#card_unlocked_nukegiga") as HTMLInputElement;
+  const ocarina = document.querySelector("#card_unlocked_ocarina") as HTMLInputElement;
+  const paint = document.querySelector("#card_unlocked_paint") as HTMLInputElement;
+  const piss = document.querySelector("#card_unlocked_piss") as HTMLInputElement;
+  const polymorph = document.querySelector("#card_unlocked_polymorph") as HTMLInputElement;
+  const pyramid = document.querySelector("#card_unlocked_pyramid") as HTMLInputElement;
+  const rain = document.querySelector("#card_unlocked_rain") as HTMLInputElement;
+  const rainbowTrail = document.querySelector("#card_unlocked_rainbow_trail") as HTMLInputElement;
+  const seaMimic = document.querySelector("#card_unlocked_sea_mimic") as HTMLInputElement;
+
+  return new Map<CardUnlockedFlags, HTMLInputElement>([
+    ["card_unlocked_touch_grass", touchGrass],
+    ["card_unlocked_alchemy", alchemy],
+    ["card_unlocked_black_hole", blackHole],
+    ["card_unlocked_bomb_holy_giga", bombHolyGiga],
+    ["card_unlocked_cessation", cessation],
+    ["card_unlocked_destruction", destruction],
+    ["card_unlocked_divide", divide],
+    ["card_unlocked_dragon", dragon],
+    ["card_unlocked_duplicate", duplicate],
+    ["card_unlocked_everything", everything],
+    ["card_unlocked_fish", fish],
+    ["card_unlocked_funky", funky],
+    ["card_unlocked_homing_wand", homingWand],
+    ["card_unlocked_kantele", kantele],
+    ["card_unlocked_maggot", maggot],
+    ["card_unlocked_maths", maths],
+    ["card_unlocked_mestari", mestari],
+    ["card_unlocked_musicbox", musicbox],
+    ["card_unlocked_nukegiga", nukegiga],
+    ["card_unlocked_ocarina", ocarina],
+    ["card_unlocked_paint", paint],
+    ["card_unlocked_piss", piss],
+    ["card_unlocked_polymorph", polymorph],
+    ["card_unlocked_pyramid", pyramid],
+    ["card_unlocked_rain", rain],
+    ["card_unlocked_rainbow_trail", rainbowTrail],
+    ["card_unlocked_sea_mimic", seaMimic],
   ]);
 };

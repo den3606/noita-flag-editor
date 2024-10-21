@@ -1,15 +1,16 @@
 import { invoke } from "@tauri-apps/api";
-import type { MonitorStatus, StartButtonParams } from "../interfaces/interfaces";
+import type { StartButtonParams } from "../interfaces/event";
+import type { MonitorStatus } from "../interfaces/memory";
 
-const click = async (event: Event, { monitorStatus, filePath }: StartButtonParams) => {
-  console.log(filePath);
+const click = async (event: Event, { monitorStatus, folderPath }: StartButtonParams) => {
+  console.log(folderPath);
   event.preventDefault();
 
   const startWatching = event.target as HTMLButtonElement;
   startWatching.disabled = true;
   monitorStatus.textContent = "接続中";
 
-  const response = (await invoke("start_game_status_monitor", { filePath }).catch((error) => {
+  const response = (await invoke("start_game_status_monitor", { folderPath }).catch((error) => {
     console.error("Failed to start game status monitor:", error);
   })) as MonitorStatus;
 

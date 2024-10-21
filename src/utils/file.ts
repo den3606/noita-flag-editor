@@ -110,6 +110,7 @@ export const loadJsonFile = async (filename: string): Promise<object> => {
     return jsonData;
   } catch (error) {
     console.error("Failed to read file:", error);
+    console.warn("ファイルがないため、空のオブジェクトを返却します");
     return {};
   }
 };

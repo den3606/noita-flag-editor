@@ -1,55 +1,68 @@
 import { NOITA_FLAG_EDITOR } from "./const";
-import { now } from "./date";
-import { editFlagsButton } from "./events/edit-flags-button";
+import { now } from "./utils/date";
+import { loadAndSetFlags } from "./secret";
 import { endWatchingButton } from "./events/end-watching-button";
 import { noitaFolderSelectButton } from "./events/noita-folder-select-button";
 import { startWatchingButton } from "./events/start-watching-button";
-import { loadJsonFile } from "./file";
-import { getOrbSecretElements, getSecretElements } from "./get-html-element";
-import type { EditFlagsButtonParams } from "./interfaces/event";
-import type { Settings } from "./interfaces/interfaces";
+import { loadJsonFile } from "./utils/file";
+import type { Settings } from "./interfaces/setting";
+import { loadFlagsButton } from "./events/load-flags-button";
+import { saveFlagsButton } from "./events/save-flags-button";
+import Notify from "simple-notify";
+import "simple-notify/dist/simple-notify.css";
 
 async function main() {
   const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
-  let filePath = settings.filePath;
+  let noitaFolderPath = settings.noitaFolderPath;
 
+  await loadAndSetFlags(settings);
+  
   // tags
   const lastExecutedLog = document.querySelector("#lastExecutedLog") as HTMLSpanElement;
   const monitorStatus = document.querySelector("#monitorStatus") as HTMLSpanElement;
-
   // rewrite flags
-  const editFlags = document.querySelector("#editFlags") as HTMLButtonElement;
-  editFlags.addEventListener("click", async (event: Event) => {
-    const editFlagsButtonParams: EditFlagsButtonParams = {
-      orbSecret: getOrbSecretElements(),
-      secret: getSecretElements(),
-      folderPath: "",
-    };
-    await editFlagsButton.click(event, editFlagsButtonParams);
-    lastExecutedLog.innerHTML = now();
-  });
-
-  const setCurrentFlags = document.querySelector("setCurrentFlags") as HTMLButtonElement;
-  setCurrentFlags.addEventListener("click", async (event: Event) => {
-    endWatchingButton.click(event);
-  });
-
+  const loadFlags = document.querySelector("#loadFlags") as HTMLButtonElement;
+  const saveFlags = document.querySelector("#saveFlags") as HTMLButtonElement;
   // watch memory
   const startWatching = document.querySelector("#startWatching") as HTMLButtonElement;
   const endWatching = document.querySelector("#endWatching") as HTMLButtonElement;
+  // folder setting
+  const noitaFolderSelect = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
+  const selectedNoitaFolderPath = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
+
+  // execute
+  loadFlags.addEventListener("click", async (event: Event) => {
+    loadFlagsButton.click(event, settings);
+    new Notify({
+      text: "読み込みに成功しました",
+    });
+  });
+  saveFlags.addEventListener("click", async (event: Event) => {
+    await saveFlagsButton.click(event, settings);
+    lastExecutedLog.innerHTML = now();
+    new Notify({
+      text: "書き換えに成功しました",
+    });
+  });
+
+  // settings - watch memory
   startWatching.addEventListener("click", async (event: Event) => {
-    startWatchingButton.click(event, { monitorStatus, filePath });
+    startWatchingButton.click(event, { monitorStatus, folderPath: noitaFolderPath });
   });
   endWatching.addEventListener("click", async (event: Event) => {
     endWatchingButton.click(event);
   });
 
-  // folder setting
-  const noitaFolderSelect = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
+  // settings - folder
   noitaFolderSelect.addEventListener("click", async (event: Event) => {
-    const newFilePath = await noitaFolderSelectButton.click(event);
-    filePath = newFilePath;
+    const newFolderPath = await noitaFolderSelectButton.click(event);
+    selectedNoitaFolderPath.innerHTML = newFolderPath;
+    noitaFolderPath = newFolderPath;
   });
+
+  if (noitaFolderPath != null) {
+    selectedNoitaFolderPath.innerHTML = noitaFolderPath;
+  }
 }
 
 window.addEventListener("DOMContentLoaded", async () => {

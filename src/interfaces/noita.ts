@@ -1,40 +1,9 @@
-export type OrbSecret =
-  | "orb00"
-  | "orb01"
-  | "orb02"
-  | "orb03"
-  | "orb04"
-  | "orb05"
-  | "orb06"
-  | "orb07"
-  | "orb08"
-  | "orb09"
-  | "orb10";
+import type { cardUnlockedFlagList, cardUnlockedFlagsRelatedOrbsNewList } from "../const";
 
-export type Secret =
-  | "touchGrass"
-  | "blackHole"
-  | "bombHolyGiga"
-  | "cessation"
-  | "destruction"
-  | "divide"
-  | "dragon"
-  | "duplicate"
-  | "everything"
-  | "fish"
-  | "funky"
-  | "homingWand"
-  | "kantele"
-  | "maggot"
-  | "maths"
-  | "mestari"
-  | "musicbox"
-  | "nukegiga"
-  | "ocarina"
-  | "paint"
-  | "piss"
-  | "polymorph"
-  | "pyramid"
-  | "rain"
-  | "rainbowTrail"
-  | "seaMimic";
+export type OrbCardUnlockedFlags = (typeof cardUnlockedFlagsRelatedOrbsNewList)[number];
+export type CardUnlockedFlags = (typeof cardUnlockedFlagList)[number];
+
+export type OrbSecretMap = Map<OrbCardUnlockedFlags, boolean>;
+export type SecretMap = Map<CardUnlockedFlags, boolean>;
+export type OrbSecretElementMap = Map<OrbCardUnlockedFlags, HTMLInputElement>;
+export type SecretElementMap = Map<CardUnlockedFlags, HTMLInputElement>;

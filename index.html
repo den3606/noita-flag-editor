@@ -40,22 +40,26 @@
   <hr />
   <fluent-card class="card">
     <h2>実行</h2>
-    <p>フラグを書き換えます。書き換え後は「最終実行ログ」の日時が更新されます。</p>
-    <fluent-button id="editFlags">フラグ書き換え</fluent-button>
-    <fluent-button id="setCurrentFlags">現在のフラグ状態を反映</fluent-button>
+    <p>フラグを書き換えます。書き換え後は「最終実行ログ」の日時が更新されます。
+      <br />起動時に一度フラグの読み込みが行われます。
+    </p>
+    <fluent-button id="loadFlags">フラグ読み込み</fluent-button>
+    <fluent-button id="saveFlags">フラグ書き換え</fluent-button>
   </fluent-card>
 
   <fluent-card class="card">
     <h2>設定</h2>
     <fluent-card class="card">
       <h3>自動フラグ書き換え</h3>
-      <p>メモリを監視して、死亡判定を取得します。死亡判定が入るとフラグの書き換えが行われます。
+      WIP:未実装
+      <p>メモリを監視して、死亡判定を取得します。死亡判定が入ると、
+        <br />本アプリのチェックに合わせてフラグが書き換えられます。
         <br /><u>Noitaのバージョンが変わると、動作しない可能性があります。</u>
         <br />Noitaを起動してから「自動書き換え ON」を押してください。
         <br />上部にある「メモリ監視状況」が「接続済み」になっていれば成功です。
       </p>
-      <fluent-button id="startWatching">自動書き換え ON</fluent-button>
-      <fluent-button id="endWatching">自動書き換え OFF</fluent-button>
+      <fluent-button id="startWatching" disabled>自動書き換え ON</fluent-button>
+      <fluent-button id="endWatching" disabled>自動書き換え OFF</fluent-button>
     </fluent-card>
 
     <fluent-card class="card">
@@ -63,7 +67,7 @@
       <p>フラグ書き換え対象のフォルダを指定します。<u>「未選択」の場合は選択してください。</u></p>
       <fluent-accordion>
         <fluent-accordion-item>
-          <span slot="heading">選択したフォルダ：<span>未選択</span></span>
+          <span slot="heading">選択したフォルダ：<span id="selectedNoitaFolderPath">未選択</span></span>
           <div class="panel">
             <p>
               <code>Nolla_Games_Noita</code> のフォルダを指定します。デフォルトでは以下に存在します。
@@ -96,19 +100,20 @@
       </p>
       <div class="container">
         <div class="container-item">
-          <fluent-checkbox id="orb-00">Orb 00 / Sea of Lava</fluent-checkbox><br />
-          <fluent-checkbox id="orb-01">Orb 01 / Earthquake</fluent-checkbox><br />
-          <fluent-checkbox id="orb-02">Orb 02 / Tentacle</fluent-checkbox><br />
-          <fluent-checkbox id="orb-03">Orb 03 / Nuke</fluent-checkbox><br />
-          <fluent-checkbox id="orb-04">Orb 04 / Necromancy</fluent-checkbox><br />
-          <fluent-checkbox id="orb-05">Orb 05 / Holy Bomb</fluent-checkbox><br />
+
+          <fluent-checkbox id="card_unlocked_sea_lava">Orb 00 / Sea of Lava</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_crumbling_earth">Orb 01 / Earthquake</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_tentacle">Orb 02 / Tentacle</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_nuke">Orb 03 / Nuke</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_necromancy">Orb 04 / Necromancy</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_bomb_holy">Orb 05 / Holy Bomb</fluent-checkbox><br />
         </div>
         <div class="container-item">
-          <fluent-checkbox id="orb-06">Orb 06 / Spiral Shot</fluent-checkbox><br />
-          <fluent-checkbox id="orb-07">Orb 07 / Thundercloud</fluent-checkbox><br />
-          <fluent-checkbox id="orb-08">Orb 08 / Fireworks!</fluent-checkbox><br />
-          <fluent-checkbox id="orb-09">Orb 09 / Summon Deercoy</fluent-checkbox><br />
-          <fluent-checkbox id="orb-10">Orb 10 / Cement</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_spiral_shot">Orb 06 / Spiral Shot</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_cloud_thunder">Orb 07 / Thundercloud</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_firework">Orb 08 / Fireworks!</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_exploding_deer">Orb 09 / Summon Deercoy</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_material_cement">Orb 10 / Cement</fluent-checkbox><br />
         </div>
       </div>
     </fluent-card>
@@ -119,35 +124,35 @@
       </p>
       <div class="container">
         <div class="container-item">
-          <fluent-checkbox id="secret-touch-grass">touch_grass</fluent-checkbox><br />
-          <fluent-checkbox id="secret-alchemy">alchemy</fluent-checkbox><br />
-          <fluent-checkbox id="secret-black-hole">black_hole</fluent-checkbox><br />
-          <fluent-checkbox id="secret-bomb-holy-giga">bomb_holy_giga</fluent-checkbox><br />
-          <fluent-checkbox id="secret-cessation">cessation</fluent-checkbox><br />
-          <fluent-checkbox id="secret-destruction">destruction</fluent-checkbox><br />
-          <fluent-checkbox id="secret-divide">divide</fluent-checkbox><br />
-          <fluent-checkbox id="secret-dragon">dragon</fluent-checkbox><br />
-          <fluent-checkbox id="secret-duplicate">duplicate</fluent-checkbox><br />
-          <fluent-checkbox id="secret-everything">everything</fluent-checkbox><br />
-          <fluent-checkbox id="secret-fish">fish</fluent-checkbox><br />
-          <fluent-checkbox id="secret-funky">funky</fluent-checkbox><br />
-          <fluent-checkbox id="secret-homing-wand">homing_wand</fluent-checkbox><br />
-          <fluent-checkbox id="secret-kantele">kantele</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_touch_grass">touch_grass</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_alchemy">alchemy</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_black_hole">black_hole</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_bomb_holy_giga">bomb_holy_giga</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_cessation">cessation</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_destruction">destruction</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_divide">divide</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_dragon">dragon</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_duplicate">duplicate</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_everything">everything</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_fish">fish</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_funky">funky</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_homing_wand">homing_wand</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_kantele">kantele</fluent-checkbox><br />
         </div>
         <div class="container-item">
-          <fluent-checkbox id="secret-maggot">maggot</fluent-checkbox><br />
-          <fluent-checkbox id="secret-maths">maths</fluent-checkbox><br />
-          <fluent-checkbox id="secret-mestari">mestari</fluent-checkbox><br />
-          <fluent-checkbox id="secret-musicbox">musicbox</fluent-checkbox><br />
-          <fluent-checkbox id="secret-nukegiga">nukegiga</fluent-checkbox><br />
-          <fluent-checkbox id="secret-ocarina">ocarina</fluent-checkbox><br />
-          <fluent-checkbox id="secret-paint">paint</fluent-checkbox><br />
-          <fluent-checkbox id="secret-piss">piss</fluent-checkbox><br />
-          <fluent-checkbox id="secret-polymorph">polymorph</fluent-checkbox><br />
-          <fluent-checkbox id="secret-pyramid">pyramid</fluent-checkbox><br />
-          <fluent-checkbox id="secret-rain">rain</fluent-checkbox><br />
-          <fluent-checkbox id="secret-rainbow-trail">rainbow_trail</fluent-checkbox><br />
-          <fluent-checkbox id="secret-sea-mimic">sea_mimic</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_maggot">maggot</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_maths">maths</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_mestari">mestari</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_musicbox">musicbox</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_nukegiga">nukegiga</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_ocarina">ocarina</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_paint">paint</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_piss">piss</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_polymorph">polymorph</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_pyramid">pyramid</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_rain">rain</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_rainbow_trail">rainbow_trail</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_sea_mimic">sea_mimic</fluent-checkbox><br />
         </div>
       </div>
     </fluent-card>

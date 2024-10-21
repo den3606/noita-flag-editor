@@ -1,12 +1,12 @@
-import type { OrbSecret, Secret } from "./noita";
+import type { OrbSecretElementMap, SecretElementMap } from "./noita";
 
-export interface EditFlagsButtonParams {
-  orbSecret: Map<OrbSecret, HTMLInputElement>;
-  secret: Map<Secret, HTMLInputElement>;
+export interface SetCurrentFlagsButtonParams {
+  orbSecret: OrbSecretElementMap;
+  secret: SecretElementMap;
   folderPath: string;
 }
 
 export interface StartButtonParams {
-  monitorStatus: HTMLParagraphElement;
-  filePath: string;
+  monitorStatus: HTMLSpanElement;
+  folderPath: string;
 }

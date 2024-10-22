@@ -3,8 +3,7 @@ import type { Settings } from "../interfaces/setting";
 import { loadJsonFile, saveJsonFile } from "../utils/file";
 import { selectFolder } from "../utils/folder";
 
-const click = async (event: Event) => {
-  event.preventDefault();
+const execute = async () => {
   const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
   const selectedFolderPath = await selectFolder();
   settings.noitaFolderPath = selectedFolderPath;
@@ -12,6 +11,6 @@ const click = async (event: Event) => {
   return settings.noitaFolderPath;
 };
 
-export const noitaFolderSelectButton = {
-  click,
+export const noitaFolderSelectEvent = {
+  execute,
 };

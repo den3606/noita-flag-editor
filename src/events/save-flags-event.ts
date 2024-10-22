@@ -5,9 +5,7 @@ import { getOrbSecretElements, getSecretElements } from "../get-html-element";
 import type { Settings } from "../interfaces/setting";
 import { validateAndFixOrbSecrets } from "../secret";
 
-const click = async (event: Event, settings: Settings): Promise<void> => {
-  event.preventDefault();
-
+const execute = async (settings: Settings): Promise<void> => {
   await validateAndFixOrbSecrets(settings.noitaFolderPath);
 
   try {
@@ -53,6 +51,6 @@ const click = async (event: Event, settings: Settings): Promise<void> => {
   }
 };
 
-export const saveFlagsButton = {
-  click,
+export const saveFlagsEvent = {
+  execute,
 };

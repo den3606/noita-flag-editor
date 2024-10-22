@@ -1,15 +1,15 @@
 import Notify from "simple-notify";
 import { NOITA_FLAG_EDITOR } from "./const";
-import { endWatchingButton } from "./events/end-watching-button";
-import { loadFlagsButton } from "./events/load-flags-button";
-import { noitaFolderSelectButton } from "./events/noita-folder-select-button";
-import { saveFlagsButton } from "./events/save-flags-button";
-import { startWatchingButton } from "./events/start-watching-button";
 import type { Settings } from "./interfaces/setting";
 import { loadAndSetFlags } from "./secret";
 import { now } from "./utils/date";
 import { loadJsonFile } from "./utils/file";
 import "simple-notify/dist/simple-notify.css";
+import { endWatchingEvent } from "./events/end-watching-event";
+import { loadFlagsEvent } from "./events/load-flags-event";
+import { noitaFolderSelectEvent } from "./events/noita-folder-select-event";
+import { saveFlagsEvent } from "./events/save-flags-event";
+import { startWatchingEvent } from "./events/start-watching-event";
 
 async function main() {
   const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
@@ -18,61 +18,61 @@ async function main() {
   await loadAndSetFlags(settings);
 
   // tags
-  const lastExecutedLog = document.querySelector("#lastExecutedLog") as HTMLSpanElement;
-  const monitorStatus = document.querySelector("#monitorStatus") as HTMLSpanElement;
+  const lastExecutedLogElement = document.querySelector("#lastExecutedLog") as HTMLSpanElement;
+  const monitorStatusElement = document.querySelector("#monitorStatus") as HTMLSpanElement;
   // rewrite flags
-  const loadFlags = document.querySelector("#loadFlags") as HTMLButtonElement;
-  const saveFlags = document.querySelector("#saveFlags") as HTMLButtonElement;
+  const loadFlagsElement = document.querySelector("#loadFlags") as HTMLButtonElement;
+  const saveFlagsElement = document.querySelector("#saveFlags") as HTMLButtonElement;
   // watch memory
-  const startWatching = document.querySelector("#startWatching") as HTMLButtonElement;
-  const endWatching = document.querySelector("#endWatching") as HTMLButtonElement;
+  const startWatchingElement = document.querySelector("#startWatching") as HTMLButtonElement;
+  const endWatchingElement = document.querySelector("#endWatching") as HTMLButtonElement;
   // folder setting
-  const noitaFolderSelect = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
-  const selectedNoitaFolderPath = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
+  const noitaFolderSelectElement = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
+  const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
 
-  const saveFlagsButtonAction = async (event: Event) => {
-    await saveFlagsButton.click(event, settings);
-    lastExecutedLog.textContent = now();
+  const saveFlagsAction = async (event: Event) => {
+    await saveFlagsEvent.execute(event, settings);
+    lastExecutedLogElement.textContent = now();
   };
 
   // execute
-  loadFlags.addEventListener("click", async (event: Event) => {
-    loadFlagsButton.click(event, settings);
+  loadFlagsElement.addEventListener("click", async () => {
+    loadFlagsEvent.execute(settings);
     new Notify({
       text: "読み込みに成功しました",
     });
   });
-  saveFlags.addEventListener("click", async (event: Event) => {
-    await saveFlagsButtonAction(event);
+  saveFlagsElement.addEventListener("click", async (event: Event) => {
+    await saveFlagsAction(event);
     new Notify({
       text: "書き換えに成功しました",
     });
   });
 
   // settings - watch memory
-  startWatching.addEventListener("click", async (event: Event) => {
-    await startWatchingButton.click(event, monitorStatus, async () => {
-      await saveFlagsButtonAction(event);
+  startWatchingElement.addEventListener("click", async (event: Event) => {
+    await startWatchingEvent.execute(event, monitorStatusElement, async () => {
+      await saveFlagsAction(event);
       new Notify({
         text: "自動的な書き換えに成功しました",
       });
     });
-    endWatching.disabled = false;
+    endWatchingElement.disabled = false;
   });
-  endWatching.addEventListener("click", async (event: Event) => {
-    endWatchingButton.click(event);
-    startWatching.disabled = false;
+  endWatchingElement.addEventListener("click", async (event: Event) => {
+    endWatchingEvent.execute(event);
+    startWatchingElement.disabled = false;
   });
 
   // settings - folder
-  noitaFolderSelect.addEventListener("click", async (event: Event) => {
-    const newFolderPath = await noitaFolderSelectButton.click(event);
-    selectedNoitaFolderPath.textContent = newFolderPath;
+  noitaFolderSelectElement.addEventListener("click", async (event: Event) => {
+    const newFolderPath = await noitaFolderSelectEvent.execute();
+    selectedNoitaFolderPathElement.textContent = newFolderPath;
     noitaFolderPath = newFolderPath;
   });
 
   if (noitaFolderPath != null) {
-    selectedNoitaFolderPath.textContent = noitaFolderPath;
+    selectedNoitaFolderPathElement.textContent = noitaFolderPath;
   }
 }
 

@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api";
 
-const click = async (event: Event) => {
+const execute = async (event: Event) => {
   event.preventDefault();
   const endWatching = event.target as HTMLButtonElement;
   endWatching.disabled = true;
@@ -9,6 +9,6 @@ const click = async (event: Event) => {
   });
 };
 
-export const endWatchingButton = {
-  click,
+export const endWatchingEvent = {
+  execute,
 };

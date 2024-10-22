@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api";
-import { type Event, listen } from "@tauri-apps/api/event";
+import { type Event as TauriEvent, listen } from "@tauri-apps/api/event";
 import Notify from "simple-notify";
 import { MONITOR_STATUS } from "../const";
 import type { GameStatus } from "../interfaces/backend";
@@ -14,7 +14,7 @@ const execute = async (
   startWatching.disabled = true;
   monitorStatus.textContent = MONITOR_STATUS.CONNECTING;
 
-  const unlisten = await listen("game-status", async (event: Event<GameStatus>) => {
+  const unlisten = await listen("game-status", async (event: TauriEvent<GameStatus>) => {
     if (event.payload === "death") {
       await onDeathCallback();
       startWatching.disabled = true;

@@ -30,8 +30,8 @@ async function main() {
   const noitaFolderSelectElement = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
   const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
 
-  const saveFlagsAction = async (event: Event) => {
-    await saveFlagsEvent.execute(event, settings);
+  const saveFlagsAction = async () => {
+    await saveFlagsEvent.execute(settings);
     lastExecutedLogElement.textContent = now();
   };
 
@@ -42,8 +42,8 @@ async function main() {
       text: "読み込みに成功しました",
     });
   });
-  saveFlagsElement.addEventListener("click", async (event: Event) => {
-    await saveFlagsAction(event);
+  saveFlagsElement.addEventListener("click", async () => {
+    await saveFlagsAction();
     new Notify({
       text: "書き換えに成功しました",
     });
@@ -52,7 +52,7 @@ async function main() {
   // settings - watch memory
   startWatchingElement.addEventListener("click", async (event: Event) => {
     await startWatchingEvent.execute(event, monitorStatusElement, async () => {
-      await saveFlagsAction(event);
+      await saveFlagsAction();
       new Notify({
         text: "自動的な書き換えに成功しました",
       });
@@ -65,7 +65,7 @@ async function main() {
   });
 
   // settings - folder
-  noitaFolderSelectElement.addEventListener("click", async (event: Event) => {
+  noitaFolderSelectElement.addEventListener("click", async () => {
     const newFolderPath = await noitaFolderSelectEvent.execute();
     selectedNoitaFolderPathElement.textContent = newFolderPath;
     noitaFolderPath = newFolderPath;

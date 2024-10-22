@@ -1,5 +1,4 @@
 import { invoke } from "@tauri-apps/api";
-import type { UnlistenFn } from "@tauri-apps/api/event";
 
 const click = async (event: Event) => {
   event.preventDefault();

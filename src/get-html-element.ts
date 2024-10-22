@@ -1,7 +1,7 @@
 import type {
+  CardUnlockedFlags,
   OrbCardUnlockedFlags,
   OrbSecretElementMap,
-  CardUnlockedFlags,
   SecretElementMap,
 } from "./interfaces/noita";
 

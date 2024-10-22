@@ -1,15 +1,15 @@
-import type { CardUnlockedFlags, OrbCardUnlockedFlags, OrbSecretMap, SecretMap } from "./interfaces/noita";
-import { exists, writeTextFile } from "@tauri-apps/api/fs";
 import { path } from "@tauri-apps/api";
+import { exists, writeTextFile } from "@tauri-apps/api/fs";
 import {
+  NOITA_FLAG_EDITOR,
   cardUnlockedFlagList,
   cardUnlockedFlagsRelatedOrbsNewList,
-  NOITA_FLAG_EDITOR,
   orbsCardMappingList,
   orbsNewFileNameList,
 } from "./const";
-import type { Settings } from "./interfaces/setting";
 import { getOrbSecretElements, getSecretElements } from "./get-html-element";
+import type { CardUnlockedFlags, OrbCardUnlockedFlags, OrbSecretMap, SecretMap } from "./interfaces/noita";
+import type { Settings } from "./interfaces/setting";
 
 export const validateAndFixOrbSecrets = async (noitaFolderPath: string): Promise<void> => {
   try {

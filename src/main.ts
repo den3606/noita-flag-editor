@@ -1,14 +1,14 @@
-import { MONITOR_STATUS, NOITA_FLAG_EDITOR } from "./const";
-import { now } from "./utils/date";
-import { loadAndSetFlags } from "./secret";
-import { endWatchingButton } from "./events/end-watching-button";
-import { noitaFolderSelectButton } from "./events/noita-folder-select-button";
-import { startWatchingButton } from "./events/start-watching-button";
-import { loadJsonFile } from "./utils/file";
-import type { Settings } from "./interfaces/setting";
-import { loadFlagsButton } from "./events/load-flags-button";
-import { saveFlagsButton } from "./events/save-flags-button";
 import Notify from "simple-notify";
+import { NOITA_FLAG_EDITOR } from "./const";
+import { endWatchingButton } from "./events/end-watching-button";
+import { loadFlagsButton } from "./events/load-flags-button";
+import { noitaFolderSelectButton } from "./events/noita-folder-select-button";
+import { saveFlagsButton } from "./events/save-flags-button";
+import { startWatchingButton } from "./events/start-watching-button";
+import type { Settings } from "./interfaces/setting";
+import { loadAndSetFlags } from "./secret";
+import { now } from "./utils/date";
+import { loadJsonFile } from "./utils/file";
 import "simple-notify/dist/simple-notify.css";
 
 async function main() {

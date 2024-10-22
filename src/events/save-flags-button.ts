@@ -1,9 +1,9 @@
 import { path } from "@tauri-apps/api";
+import { exists, removeFile, writeTextFile } from "@tauri-apps/api/fs";
 import { NOITA_FLAG_EDITOR, orbsCardMappingList } from "../const";
 import { getOrbSecretElements, getSecretElements } from "../get-html-element";
 import type { Settings } from "../interfaces/setting";
 import { validateAndFixOrbSecrets } from "../secret";
-import { exists, removeFile, writeTextFile } from "@tauri-apps/api/fs";
 
 const click = async (event: Event, settings: Settings): Promise<void> => {
   event.preventDefault();

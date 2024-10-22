@@ -1,8 +1,7 @@
 import { invoke } from "@tauri-apps/api";
-import { MONITOR_STATUS } from "../const";
-import { listen, type UnlistenFn } from "@tauri-apps/api/event";
+import { listen } from "@tauri-apps/api/event";
 import Notify from "simple-notify";
-import { join } from "@tauri-apps/api/path";
+import { MONITOR_STATUS } from "../const";
 
 const click = async (
   event: Event,

@@ -1,6 +1,6 @@
 import { NOITA_FLAG_EDITOR } from "../const";
-import { loadJsonFile, saveJsonFile } from "../utils/file";
 import type { Settings } from "../interfaces/setting";
+import { loadJsonFile, saveJsonFile } from "../utils/file";
 import { selectFolder } from "../utils/folder";
 
 const click = async (event: Event) => {

@@ -51,7 +51,8 @@ async function main() {
 
   // settings - watch memory
   startWatchingElement.addEventListener("click", async (event: Event) => {
-    await startWatchingEvent.execute(event, monitorStatusElement, async () => {
+    event.preventDefault();
+    await startWatchingEvent.execute(startWatchingElement, endWatchingElement, monitorStatusElement, async () => {
       await saveFlagsAction();
       new Notify({
         text: "自動的な書き換えに成功しました",

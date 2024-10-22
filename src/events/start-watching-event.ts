@@ -5,19 +5,19 @@ import { MONITOR_STATUS } from "../const";
 import type { GameStatus } from "../interfaces/backend";
 
 const execute = async (
-  event: Event,
+  startWatchingElement: HTMLButtonElement,
+  endWatchingElement: HTMLButtonElement,
   monitorStatus: HTMLSpanElement,
   onDeathCallback: () => Promise<void>,
 ): Promise<void> => {
-  event.preventDefault();
-  const startWatching = event.target as HTMLButtonElement;
-  startWatching.disabled = true;
+  startWatchingElement.disabled = true;
   monitorStatus.textContent = MONITOR_STATUS.CONNECTING;
 
   const unlisten = await listen("game-status", async (event: TauriEvent<GameStatus>) => {
     if (event.payload === "death") {
       await onDeathCallback();
-      startWatching.disabled = true;
+      startWatchingElement.disabled = true;
+      endWatchingElement.disabled = false;
     }
 
     if (event.payload === "connected") {
@@ -25,7 +25,8 @@ const execute = async (
         text: "接続に成功しました",
         status: "success",
       });
-      startWatching.disabled = true;
+      startWatchingElement.disabled = true;
+      endWatchingElement.disabled = false;
       monitorStatus.textContent = MONITOR_STATUS.CONNECTED;
     }
 
@@ -35,8 +36,9 @@ const execute = async (
         status: "info",
       });
       unlisten();
+      startWatchingElement.disabled = false;
+      endWatchingElement.disabled = true;
       monitorStatus.textContent = MONITOR_STATUS.COMPLETED;
-      startWatching.disabled = false;
     }
 
     if (event.payload === "timeout") {
@@ -45,14 +47,18 @@ const execute = async (
         status: "error",
       });
       unlisten();
+      startWatchingElement.disabled = false;
+      endWatchingElement.disabled = true;
       monitorStatus.textContent = MONITOR_STATUS.TIMEOUT;
-      startWatching.disabled = false;
     }
   });
 
   const executedText = await invoke("start_game_status_monitor").catch((error) => {
     console.error("Failed to start game status monitor:", error);
     unlisten();
+    startWatchingElement.disabled = false;
+    endWatchingElement.disabled = true;
+    monitorStatus.textContent = MONITOR_STATUS.TIMEOUT;
   });
   console.info(executedText);
 };

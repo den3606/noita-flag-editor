@@ -1,4 +1,4 @@
-import { NOITA_FLAG_EDITOR } from "./const";
+import { MONITOR_STATUS, NOITA_FLAG_EDITOR } from "./const";
 import { now } from "./utils/date";
 import { loadAndSetFlags } from "./secret";
 import { endWatchingButton } from "./events/end-watching-button";
@@ -30,6 +30,11 @@ async function main() {
   const noitaFolderSelect = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
   const selectedNoitaFolderPath = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
 
+  const saveFlagsButtonAction = async (event: Event) => {
+    await saveFlagsButton.click(event, settings);
+    lastExecutedLog.textContent = now();
+  };
+
   // execute
   loadFlags.addEventListener("click", async (event: Event) => {
     loadFlagsButton.click(event, settings);
@@ -38,8 +43,7 @@ async function main() {
     });
   });
   saveFlags.addEventListener("click", async (event: Event) => {
-    await saveFlagsButton.click(event, settings);
-    lastExecutedLog.innerHTML = now();
+    await saveFlagsButtonAction(event);
     new Notify({
       text: "書き換えに成功しました",
     });
@@ -47,21 +51,28 @@ async function main() {
 
   // settings - watch memory
   startWatching.addEventListener("click", async (event: Event) => {
-    startWatchingButton.click(event, { monitorStatus, noitaFolderPath: noitaFolderPath });
+    await startWatchingButton.click(event, monitorStatus, async () => {
+      await saveFlagsButtonAction(event);
+      new Notify({
+        text: "自動的な書き換えに成功しました",
+      });
+    });
+    endWatching.disabled = false;
   });
   endWatching.addEventListener("click", async (event: Event) => {
     endWatchingButton.click(event);
+    startWatching.disabled = false;
   });
 
   // settings - folder
   noitaFolderSelect.addEventListener("click", async (event: Event) => {
     const newFolderPath = await noitaFolderSelectButton.click(event);
-    selectedNoitaFolderPath.innerHTML = newFolderPath;
+    selectedNoitaFolderPath.textContent = newFolderPath;
     noitaFolderPath = newFolderPath;
   });
 
   if (noitaFolderPath != null) {
-    selectedNoitaFolderPath.innerHTML = noitaFolderPath;
+    selectedNoitaFolderPath.textContent = noitaFolderPath;
   }
 }
 

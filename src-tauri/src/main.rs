@@ -10,31 +10,46 @@ use std::io::{self, Read, Write};
 use std::sync::{mpsc, Arc, Mutex};
 use std::thread;
 use std::time::{Duration, Instant};
+use tauri::Manager;
 use tera::{Context, Tera};
 use winapi::shared::minwindef::TRUE;
 use winapi::um::handleapi::CloseHandle;
 use winapi::um::winnt::HANDLE;
 
 #[tauri::command]
-async fn start_game_status_monitor(template: String, file_path: String) -> Result<String, String> {
+async fn start_game_status_monitor(app_handle: tauri::AppHandle) -> Result<String, String> {
     let (tx, rx) = mpsc::channel();
 
     thread::spawn(move || {
-        let result = monitor_game_status(template, file_path);
-        tx.send(result).unwrap(); // 結果を送信
+        let result = monitor_game_status(tx);
+        if let Err(e) = result {
+            eprintln!("Error: {:?}", e);
+        }
     });
 
-    // スレッドの結果を受信
-    match rx.recv() {
-        Ok(status) => {
-            let sta = status.unwrap();
-            match sta {
-                MonitorStatus::Close => Ok(String::from("close")),
-                MonitorStatus::Timeout => Ok(String::from("timeout")),
+    // スレッドからの通知を非同期で処理
+    tauri::async_runtime::spawn(async move {
+        while let Ok(status) = rx.recv() {
+            match status {
+                MonitorStatus::Death => {
+                    app_handle.emit_all("game-status", "death").unwrap();
+                }
+                MonitorStatus::Connected => {
+                    app_handle.emit_all("game-status", "connected").unwrap();
+                }
+                MonitorStatus::Close => {
+                    app_handle.emit_all("game-status", "close").unwrap();
+                    break;
+                }
+                MonitorStatus::Timeout => {
+                    app_handle.emit_all("game-status", "timeout").unwrap();
+                    break;
+                }
             }
         }
-        Err(_) => Err(String::from("Failed to receive result from thread")),
-    }
+    });
+
+    Ok(String::from("Monitoring started"))
 }
 
 #[tauri::command]
@@ -47,48 +62,50 @@ async fn stop_game_status_monitor() -> Result<(), String> {
 }
 
 enum MonitorStatus {
+    Death,
     Close,
     Timeout,
+    Connected,
 }
 
-fn monitor_game_status(template: String, file_path: String) -> io::Result<MonitorStatus> {
-    // 勝数を記録するファイル
-
-    // 初期化
-    if !std::path::Path::new(&file_path).exists() {
-        fs::write(&file_path, b"0")?;
-    }
-
+fn monitor_game_status(tx: std::sync::mpsc::Sender<MonitorStatus>) -> io::Result<()> {
     let process_name = "noita.exe";
-    let victory_address: u32 = target_address::ADDRESS_20240430.victory; // 勝利状態を示すアドレス
-    let death_address: u32 = target_address::ADDRESS_20240430.death; // 死亡状態を示すアドレス
+    let death_address: u32 = target_address::ADDRESS_20240812.death;
 
     let mut start_time = Instant::now();
     let mut updated = false;
+    let mut connected = false;
     *SHOULD_STOP.lock().unwrap() = false;
 
     loop {
+        eprint!("looping");
         if *SHOULD_STOP.lock().unwrap() {
-            return Ok(MonitorStatus::Close);
+            eprint!("force");
+            tx.send(MonitorStatus::Close).unwrap();
+            return Ok(());
+        } else if start_time.elapsed() > Duration::from_secs(6) {
+            eprint!("timeout");
+            // 5秒以上プロセスが見つからなかった場合、失敗とする
+            eprintln!("Failed to find Noita process within 5 seconds.");
+            tx.send(MonitorStatus::Timeout).unwrap();
+            return Ok(());
         }
 
         if let Some((handle, _pid)) = memory::find_process_by_name(process_name) {
+            if !connected {
+                connected = true;
+                tx.send(MonitorStatus::Connected).unwrap();
+            }
             let death_state = read_memory(handle, death_address)?;
-            let victory_state = read_memory(handle, victory_address)?;
 
             if death_state == TRUE as u32 {
                 if !updated {
-                    // 勝利状態のチェック
-                    if victory_state > 0 {
-                        eprintln!("{}", victory_state);
-                        add_win_streak(&file_path, &template, 1).unwrap();
-                    } else {
-                        reset_win_streak(&file_path, &template).unwrap();
-                    }
                     updated = true;
+                    tx.send(MonitorStatus::Death).unwrap();
                 }
             } else {
                 if updated {
+                    // New Gameのとき
                     updated = false;
                 }
             }
@@ -96,12 +113,6 @@ fn monitor_game_status(template: String, file_path: String) -> io::Result<Monito
             // プロセスが見つかった場合、タイマーをリセット
             start_time = Instant::now();
             unsafe { CloseHandle(handle) };
-        }
-
-        // 5秒以上プロセスが見つからなかった場合、失敗とする
-        if start_time.elapsed() > Duration::from_secs(5) {
-            eprintln!("Failed to find Noita process within 5 seconds.");
-            return Ok(MonitorStatus::Timeout);
         }
 
         thread::sleep(Duration::from_secs(1));

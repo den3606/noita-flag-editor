@@ -1,32 +1,60 @@
 import { invoke } from "@tauri-apps/api";
-import type { StartButtonParams } from "../interfaces/event";
-import type { MonitorStatus } from "../interfaces/memory";
+import { MONITOR_STATUS } from "../const";
+import { listen, type UnlistenFn } from "@tauri-apps/api/event";
+import Notify from "simple-notify";
+import { join } from "@tauri-apps/api/path";
 
-const click = async (event: Event, { monitorStatus, folderPath }: StartButtonParams) => {
-  console.log(folderPath);
+const click = async (
+  event: Event,
+  monitorStatus: HTMLSpanElement,
+  onDeathCallback: () => Promise<void>,
+): Promise<void> => {
   event.preventDefault();
-
   const startWatching = event.target as HTMLButtonElement;
   startWatching.disabled = true;
-  monitorStatus.textContent = "接続中";
+  monitorStatus.textContent = MONITOR_STATUS.CONNECTING;
 
-  const response = (await invoke("start_game_status_monitor", { folderPath }).catch((error) => {
+  const unlisten = await listen("game-status", async (event) => {
+    if (event.payload === "death") {
+      await onDeathCallback();
+      startWatching.disabled = true;
+    }
+
+    if (event.payload === "connected") {
+      new Notify({
+        text: "接続に成功しました",
+        status: "success",
+      });
+      startWatching.disabled = true;
+      monitorStatus.textContent = MONITOR_STATUS.CONNECTED;
+    }
+
+    if (event.payload === "close") {
+      new Notify({
+        text: "接続が終了しました",
+        status: "info",
+      });
+      unlisten();
+      monitorStatus.textContent = MONITOR_STATUS.COMPLETED;
+      startWatching.disabled = false;
+    }
+
+    if (event.payload === "timeout") {
+      new Notify({
+        text: "接続に失敗しました",
+        status: "error",
+      });
+      unlisten();
+      monitorStatus.textContent = MONITOR_STATUS.TIMEOUT;
+      startWatching.disabled = false;
+    }
+  });
+
+  const executedText = await invoke("start_game_status_monitor").catch((error) => {
     console.error("Failed to start game status monitor:", error);
-  })) as MonitorStatus;
-
-  if (response === "close") {
-    monitorStatus.textContent = "接続終了";
-  }
-
-  if (response === "timeout") {
-    monitorStatus.textContent = "接続切れ";
-  }
-
-  if (response === "undefined") {
-    monitorStatus.textContent = "未定義レスポンス";
-    console.warn("undefined");
-  }
-  startWatching.disabled = false;
+    unlisten();
+  });
+  console.info(executedText);
 };
 
 export const startWatchingButton = {

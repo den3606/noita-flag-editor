@@ -4,6 +4,14 @@ export const NOITA_FLAG_EDITOR = {
   FLAGS_PATH: "save00/persistent/flags",
 } as const;
 
+export const MONITOR_STATUS = {
+  CONNECTING: "接続待機中",
+  CONNECTED: "接続中",
+  COMPLETED: "接続終了",
+  TIMEOUT: "接続切れ",
+  UNDEFINED: "未定義レスポンス",
+} as const;
+
 export const orbsNewFileNameList = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"] as const;
 export const cardUnlockedFlagsRelatedOrbsNewList = [
   "card_unlocked_sea_lava",

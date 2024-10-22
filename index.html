@@ -1,9 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 
 <head>
   <meta charset="UTF-8" />
   <link rel="stylesheet" href="/src/styles.css" />
+  <link rel="stylesheet" href="/src/icons.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Noita Winstreak Watcher</title>
   <script type="module" src="/src/main.ts" defer></script>
@@ -16,7 +17,7 @@
       fluentBadge,
       fluentAccordion,
       fluentAccordionItem,
-      fluentCard
+      fluentCard,
     } from "@fluentui/web-components";
 
     provideFluentDesignSystem()
@@ -26,7 +27,7 @@
         fluentBadge(),
         fluentAccordion(),
         fluentAccordionItem(),
-        fluentCard()
+        fluentCard(),
       );
   </script>
 </head>
@@ -34,7 +35,7 @@
 <body>
 
   <h1>Noita Flag Editor</h1>
-  <fluent-badge appearance="accent">最終実行ログ：<span id="lastExecutedLog"></span></fluent-badge>
+  <fluent-badge appearance="accent">最終実行ログ：<span id="lastExecutedLog">未実行</span></fluent-badge>
   <fluent-badge appearance="accent">メモリ監視状況：<span id="monitorStatus">未接続</span></fluent-badge>
 
   <hr />
@@ -43,23 +44,22 @@
     <p>フラグを書き換えます。書き換え後は「最終実行ログ」の日時が更新されます。
       <br />起動時に一度フラグの読み込みが行われます。
     </p>
-    <fluent-button id="loadFlags">フラグ読み込み</fluent-button>
-    <fluent-button id="saveFlags">フラグ書き換え</fluent-button>
+    <fluent-button id="loadFlags" appearance="accent">フラグ読み込み</fluent-button>
+    <fluent-button id="saveFlags" appearance="accent">フラグ書き換え</fluent-button>
   </fluent-card>
 
   <fluent-card class="card">
     <h2>設定</h2>
     <fluent-card class="card">
       <h3>自動フラグ書き換え</h3>
-      WIP:未実装
       <p>メモリを監視して、死亡判定を取得します。死亡判定が入ると、
         <br />本アプリのチェックに合わせてフラグが書き換えられます。
         <br /><u>Noitaのバージョンが変わると、動作しない可能性があります。</u>
         <br />Noitaを起動してから「自動書き換え ON」を押してください。
         <br />上部にある「メモリ監視状況」が「接続済み」になっていれば成功です。
       </p>
-      <fluent-button id="startWatching" disabled>自動書き換え ON</fluent-button>
-      <fluent-button id="endWatching" disabled>自動書き換え OFF</fluent-button>
+      <fluent-button id="startWatching" appearance="outline">自動書き換え ON</fluent-button>
+      <fluent-button id="endWatching">自動書き換え OFF</fluent-button>
     </fluent-card>
 
     <fluent-card class="card">
@@ -101,19 +101,45 @@
       <div class="container">
         <div class="container-item">
 
-          <fluent-checkbox id="card_unlocked_sea_lava">Orb 00 / Sea of Lava</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_crumbling_earth">Orb 01 / Earthquake</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_tentacle">Orb 02 / Tentacle</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_nuke">Orb 03 / Nuke</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_necromancy">Orb 04 / Necromancy</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_bomb_holy">Orb 05 / Holy Bomb</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_sea_lava">Orb 00 / Sea of Lava /
+            <span class="icon icon-sea_lava"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_crumbling_earth">Orb 01 / Earthquake / <span
+              class="icon icon-crumbling_earth"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_tentacle">Orb 02 / Tentacle /
+            <span class="icon icon-tentacle_timer"></span>
+            <span class="icon icon-tentacle"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_nuke">Orb 03 / Nuke /
+            <span class="icon icon-nuke"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_necromancy">Orb 04 / Necromancy /
+            <span class="icon icon-necromancy"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_bomb_holy">Orb 05 / Holy Bomb /
+            <span class="icon icon-bomb_holy"></span>
+          </fluent-checkbox><br />
         </div>
         <div class="container-item">
-          <fluent-checkbox id="card_unlocked_spiral_shot">Orb 06 / Spiral Shot</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_cloud_thunder">Orb 07 / Thundercloud</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_firework">Orb 08 / Fireworks!</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_exploding_deer">Orb 09 / Summon Deercoy</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_material_cement">Orb 10 / Cement</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_spiral_shot">Orb 06 / Spiral Shot /
+            <span class="icon icon-spiral_shot"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_cloud_thunder">Orb 07 / Thundercloud /
+            <span class="icon icon-cloud_thunder"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_firework">Orb 08 / Fireworks! /
+            <span class="icon icon-fireworks"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_exploding_deer">Orb 09 / Summon Deercoy /
+            <span class="icon icon-exploding_deer"></span>
+            <span class="icon icon-duck_2"></span>
+            <span class="icon icon-worm"></span>
+
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_material_cement">Orb 10 / Cement /
+            <span class="icon icon-material_cement"></span>
+          </fluent-checkbox><br />
         </div>
       </div>
     </fluent-card>
@@ -124,35 +150,153 @@
       </p>
       <div class="container">
         <div class="container-item">
-          <fluent-checkbox id="card_unlocked_touch_grass">touch_grass</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_alchemy">alchemy</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_black_hole">black_hole</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_bomb_holy_giga">bomb_holy_giga</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_cessation">cessation</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_destruction">destruction</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_divide">divide</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_dragon">dragon</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_duplicate">duplicate</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_everything">everything</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_fish">fish</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_funky">funky</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_homing_wand">homing_wand</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_kantele">kantele</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_touch_grass">touch_grass /
+            <span class="icon icon-touch_grass"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_alchemy">alchemy /
+            <span class="icon icon-all_acid"></span>
+            <span class="icon icon-all_blackholes"></span>
+            <span class="icon icon-all_deathcrosses"></span>
+            <span class="icon icon-all_discs"></span>
+            <span class="icon icon-all_nukes"></span>
+            <span class="icon icon-all_rockets"></span>
+            <span class="icon icon-larpa_chaos_2"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_black_hole">black_hole /
+            <span class="icon icon-black_hole_giga"></span>
+            <span class="icon icon-white_hole_giga"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_bomb_holy_giga">bomb_holy_giga /
+            <span class="icon icon-bomb_holy_giga"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_cessation">cessation /
+            <span class="icon icon-cessation"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_destruction">destruction /
+            <span class="icon icon-destruction"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_divide">divide /
+            <span class="icon icon-divide_10"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_dragon">dragon /
+            <span class="icon icon-orbit_discs"></span>
+            <span class="icon icon-orbit_fireballs"></span>
+            <span class="icon icon-orbit_larpa"></span>
+            <span class="icon icon-orbit_lasers"></span>
+            <span class="icon icon-orbit_nukes"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_duplicate">duplicate /
+            <span class="icon icon-alpha"></span>
+            <span class="icon icon-gamma"></span>
+            <span class="icon icon-tau"></span>
+            <span class="icon icon-omega"></span>
+            <span class="icon icon-mu"></span>
+            <span class="icon icon-phi"></span>
+            <span class="icon icon-sigma"></span>
+            <span class="icon icon-zeta"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_everything">everything /
+            <span class="icon icon-omega_disc_bullet"></span>
+            <span class="icon icon-all_spells"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_fish">fish /
+            <span class="icon icon-fish"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_funky">funky /
+            <span class="icon icon-machinegun_bullet"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_homing_wand">homing_wand /
+            <span class="icon icon-homing_wand"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_kantele">kantele /
+            <span class="icon icon-kantele_a"></span>
+            <span class="icon icon-kantele_a2"></span>
+            <span class="icon icon-kantele_c"></span>
+            <span class="icon icon-kantele_d"></span>
+            <span class="icon icon-kantele_dis"></span>
+            <span class="icon icon-kantele_e"></span>
+            <span class="icon icon-kantele_f"></span>
+            <span class="icon icon-kantele_g"></span>
+            <span class="icon icon-kantele_gsharp"></span>
+          </fluent-checkbox><br />
         </div>
         <div class="container-item">
           <fluent-checkbox id="card_unlocked_maggot">maggot</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_maths">maths</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_mestari">mestari</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_musicbox">musicbox</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_nukegiga">nukegiga</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_ocarina">ocarina</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_paint">paint</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_piss">piss</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_polymorph">polymorph</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_pyramid">pyramid</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_rain">rain</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_rainbow_trail">rainbow_trail</fluent-checkbox><br />
-          <fluent-checkbox id="card_unlocked_sea_mimic">sea_mimic</fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_maths">maths /
+            <span class="icon icon-if_else"></span>
+            <span class="icon icon-if_end"></span>
+            <span class="icon icon-if_enemy"></span>
+            <span class="icon icon-if_half"></span>
+            <span class="icon icon-if_hp"></span>
+            <span class="icon icon-if_projectile"></span>
+            <span class="icon icon-slow_but_steady"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_mestari">mestari /
+            <span class="icon icon-reset"></span>
+            <span class="icon icon-trigger"></span>
+            <span class="icon icon-timer"></span>
+            <span class="icon icon-death_trigger"></span>
+            <span class="icon icon-duplicate"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_musicbox">musicbox /
+            <span class="icon icon-burst_8"></span>
+            <span class="icon icon-burst_x"></span>
+            <span class="icon icon-divide_2"></span>
+            <span class="icon icon-divide_3"></span>
+            <span class="icon icon-divide_4"></span>
+            <span class="icon icon-divide_10"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_nukegiga">nukegiga /
+            <span class="icon icon-nuke_giga"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_ocarina">ocarina /
+            <span class="icon icon-ocarina_a"></span>
+            <span class="icon icon-ocarina_a2"></span>
+            <span class="icon icon-ocarina_b"></span>
+            <span class="icon icon-ocarina_c"></span>
+            <span class="icon icon-ocarina_d"></span>
+            <span class="icon icon-ocarina_e"></span>
+            <span class="icon icon-ocarina_f"></span>
+            <span class="icon icon-ocarina_gsharp"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_paint">paint /
+            <span class="icon icon-colour_blue"></span>
+            <span class="icon icon-colour_green"></span>
+            <span class="icon icon-colour_invis"></span>
+            <span class="icon icon-colour_orange"></span>
+            <span class="icon icon-colour_purple"></span>
+            <span class="icon icon-colour_rainbow"></span>
+            <span class="icon icon-colour_red"></span>
+            <span class="icon icon-colour_yellow"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_piss">piss /
+            <span class="icon icon-touch_piss"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_polymorph">polymorph /
+            <span class="icon icon-sheep"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_pyramid">pyramid /
+            <span class="icon icon-nolla"></span>
+            <span class="icon icon-draw_3_random"></span>
+            <span class="icon icon-draw_random_x3"></span>
+            <span class="icon icon-draw_random"></span>
+            <span class="icon icon-damage_random"></span>
+            <span class="icon icon-random_modifier"></span>
+            <span class="icon icon-random_projectile"></span>
+            <span class="icon icon-random_spell"></span>
+            <span class="icon icon-random_static_projectile"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_rain">rain /
+            <span class="icon icon-worm_rain"></span>
+            <span class="icon icon-meteor_rain"></span>
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_rainbow_trail">rainbow_trail /
+            <span class="icon icon-rainbow_trail"></span>
+
+          </fluent-checkbox><br />
+          <fluent-checkbox id="card_unlocked_sea_mimic">sea_mimic /
+            <span class="icon icon-sea_mimic"></span>
+          </fluent-checkbox><br />
         </div>
       </div>
     </fluent-card>

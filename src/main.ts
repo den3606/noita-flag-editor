@@ -16,7 +16,7 @@ async function main() {
   let noitaFolderPath = settings.noitaFolderPath;
 
   await loadAndSetFlags(settings);
-  
+
   // tags
   const lastExecutedLog = document.querySelector("#lastExecutedLog") as HTMLSpanElement;
   const monitorStatus = document.querySelector("#monitorStatus") as HTMLSpanElement;
@@ -47,7 +47,7 @@ async function main() {
 
   // settings - watch memory
   startWatching.addEventListener("click", async (event: Event) => {
-    startWatchingButton.click(event, { monitorStatus, folderPath: noitaFolderPath });
+    startWatchingButton.click(event, { monitorStatus, noitaFolderPath: noitaFolderPath });
   });
   endWatching.addEventListener("click", async (event: Event) => {
     endWatchingButton.click(event);

@@ -1,5 +1,5 @@
 import { path } from "@tauri-apps/api";
-import { exists, removeFile, writeTextFile } from "@tauri-apps/api/fs";
+import { exists, remove, writeTextFile } from "@tauri-apps/plugin-fs";
 import { NOITA_FLAG_EDITOR, orbsCardMappingList } from "../const";
 import { getOrbSecretElements, getSecretElements } from "../get-html-element";
 import type { Settings } from "../interfaces/setting";
@@ -22,11 +22,11 @@ const execute = async (settings: Settings): Promise<void> => {
         await writeTextFile(flagFilePath, "why are you looking here");
       } else {
         if (await exists(orbFilePath)) {
-          await removeFile(orbFilePath);
+          await remove(orbFilePath);
         }
 
         if (await exists(flagFilePath)) {
-          await removeFile(flagFilePath);
+          await remove(flagFilePath);
         }
       }
     });
@@ -40,7 +40,7 @@ const execute = async (settings: Settings): Promise<void> => {
         await writeTextFile(flagFilePath, "why are you looking here");
       } else {
         if (await exists(flagFilePath)) {
-          await removeFile(flagFilePath);
+          await remove(flagFilePath);
         }
       }
     });

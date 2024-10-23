@@ -1,4 +1,4 @@
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/core";
 import { type Event as TauriEvent, listen } from "@tauri-apps/api/event";
 import Notify from "simple-notify";
 import { MONITOR_STATUS } from "../const";

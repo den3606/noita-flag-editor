@@ -1,5 +1,5 @@
 import { path } from "@tauri-apps/api";
-import { exists, writeTextFile } from "@tauri-apps/api/fs";
+import { exists, writeTextFile } from "@tauri-apps/plugin-fs";
 import {
   NOITA_FLAG_EDITOR,
   cardUnlockedFlagList,

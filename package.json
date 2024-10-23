@@ -13,15 +13,14 @@
   },
   "dependencies": {
     "@fluentui/web-components": "^2.6.1",
-    "@tauri-apps/api": "^1.6.0",
-    "@techstark/opencv-js": "^4.9.0-release.3",
-    "simple-notify": "^1.0.5",
-    "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch#v1",
-    "tesseract.js": "^5.1.0"
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-dialog": "^2.0.1",
+    "@tauri-apps/plugin-fs": "^2.0.0",
+    "simple-notify": "^1.0.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.7.3",
-    "@tauri-apps/cli": "^1",
+    "@biomejs/biome": "1.9.4",
+    "@tauri-apps/cli": "^2.0.4",
     "typescript": "^5.0.2",
     "vite": "^5.0.0"
   }

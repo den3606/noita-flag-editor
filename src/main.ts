@@ -50,7 +50,7 @@ const main = async () => {
   // delete bones_new
   const deleteBonesNewElement = document.querySelector("#deleteBonesNew") as HTMLInputElement;
 
-  const saveFlagsAction = async () => {
+  const rewriteAction = async () => {
     const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
     await rewriteEvent.execute(settings);
     lastExecutedLogElement.textContent = now();
@@ -74,8 +74,7 @@ const main = async () => {
   });
   rewriteElement.addEventListener("click", async () => {
     try {
-      const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
-      await rewriteEvent.execute(settings);
+      await rewriteAction();
       new Notify({
         text: "書き換えに成功しました",
       });
@@ -91,7 +90,7 @@ const main = async () => {
   startWatchingElement.addEventListener("click", async (event: Event) => {
     event.preventDefault();
     await startWatchingEvent.execute(startWatchingElement, endWatchingElement, monitorStatusElement, async () => {
-      await saveFlagsAction();
+      await rewriteAction();
       new Notify({
         text: "自動的な書き換えに成功しました",
       });

@@ -1,4 +1,5 @@
 import Notify from "simple-notify";
+import { getVersion } from "@tauri-apps/api/app";
 import { NOITA_FLAG_EDITOR } from "./const";
 import type { Settings } from "./interfaces/setting";
 import { loadAndSetFlags } from "./secret";
@@ -27,6 +28,9 @@ const init = async () => {
   // Set Bones New Flags
   const deleteBonesNewElement = document.querySelector("#deleteBonesNew") as HTMLInputElement;
   deleteBonesNewElement.checked = settings.deleteBonesNew;
+
+  const version = document.querySelector("#version") as HTMLInputElement;
+  version.textContent = `v${await getVersion()}`;
 };
 
 const main = async () => {

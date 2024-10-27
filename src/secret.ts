@@ -8,23 +8,20 @@ import {
 } from "./const";
 import { getOrbSecretElements, getSecretElements } from "./get-html-element";
 import type { CardUnlockedFlags, OrbCardUnlockedFlags, OrbSecretMap, SecretMap } from "./interfaces/noita";
-
-const joinPaths = (...segments: string[]): string => {
-  return segments.map((segment) => segment.replace(/(^\/+|\/+$)/g, "")).join("/");
-};
+import path from "path-browserify";
 
 export const validateAndFixOrbSecrets = async (noitaFolderPath: string): Promise<void> => {
   console.log(`noitaFolderPath: ${noitaFolderPath}`);
   try {
     const orbsNewExistsList = await Promise.all(
       orbsNewFileNameList.map(async (orbFileName) => {
-        const filePath = joinPaths(noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbFileName);
+        const filePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbFileName);
         return exists(filePath);
       }),
     );
     const flagsExistsList = await Promise.all(
       cardUnlockedFlagsRelatedOrbsNewList.map(async (orbFileName) => {
-        const filePath = joinPaths(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, orbFileName);
+        const filePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, orbFileName);
         return exists(filePath);
       }),
     );
@@ -41,7 +38,7 @@ export const validateAndFixOrbSecrets = async (noitaFolderPath: string): Promise
 
       if (orbsNewExistsList[i]) {
         const flagFileName = orbsCardMapping.flag;
-        const filePath = joinPaths(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, flagFileName);
+        const filePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, flagFileName);
         alert(`${filePath} が欠損しています。ファイルを生成して修復します。`);
         console.warn(`${filePath} が欠損しています。ファイルを生成して修復します。`);
         await writeTextFile(filePath, "why are you looking here");
@@ -50,7 +47,7 @@ export const validateAndFixOrbSecrets = async (noitaFolderPath: string): Promise
 
       if (flagsExistsList[i]) {
         const orbsNewFileName = orbsCardMapping.orbsNew;
-        const filePath = joinPaths(noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbsNewFileName);
+        const filePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbsNewFileName);
         alert(`${filePath} が欠損しています。ファイルを生成して修復します。`);
         console.warn(`${filePath} が欠損しています。ファイルを生成して修復します。`);
         await writeTextFile(filePath, "why are you looking here");
@@ -67,8 +64,8 @@ export const validateAndFixOrbSecrets = async (noitaFolderPath: string): Promise
 export const loadOrbSecretsFromOriginal = async (noitaFolderPath: string): Promise<OrbSecretMap> => {
   const orbsNewExistsList = await Promise.all(
     orbsCardMappingList.map(async (orbsCardMapping) => {
-      const orbFilePath = joinPaths(noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbsCardMapping.orbsNew);
-      const flagFilePath = joinPaths(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, orbsCardMapping.flag);
+      const orbFilePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbsCardMapping.orbsNew);
+      const flagFilePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, orbsCardMapping.flag);
       const [orbExists, flagExists] = await Promise.all([exists(orbFilePath), exists(flagFilePath)]);
 
       return [orbsCardMapping.flag, orbExists && flagExists] as [OrbCardUnlockedFlags, boolean];
@@ -81,7 +78,7 @@ export const loadOrbSecretsFromOriginal = async (noitaFolderPath: string): Promi
 export const loadSecretsFromOriginal = async (noitaFolderPath: string): Promise<SecretMap> => {
   const flagExistsList = await Promise.all(
     cardUnlockedFlagList.map(async (flag) => {
-      const flagFilePath = joinPaths(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, flag);
+      const flagFilePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, flag);
       const flagExists = await exists(flagFilePath);
 
       return [flag, flagExists] as [CardUnlockedFlags, boolean];

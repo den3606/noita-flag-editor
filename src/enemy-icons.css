@@ -1,0 +1,23 @@
+.icon-enemy {
+  display: inline-block;
+  position: relative;
+  width: 1.2em;
+  height: 1.2em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+}
+
+.icon-enemy::before {
+  content: '';
+  position: absolute;
+  top: -0.05em;
+  left: -0.05em;
+  width: 1.4em;
+  height: 1.4em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+}

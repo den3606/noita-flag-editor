@@ -1,13 +1,12 @@
-import { path } from "@tauri-apps/api";
-import { exists, remove, writeTextFile } from "@tauri-apps/plugin-fs";
+import path from "path-browserify";
+import { exists, readDir, remove, writeTextFile } from "@tauri-apps/plugin-fs";
 import { NOITA_FLAG_EDITOR, orbsCardMappingList } from "../const";
 import { getOrbSecretElements, getSecretElements } from "../get-html-element";
 import type { Settings } from "../interfaces/setting";
 import { validateAndFixOrbSecrets } from "../secret";
 
-const execute = async (settings: Settings): Promise<void> => {
+const rewriteFlags = async (settings: Settings): Promise<void> => {
   await validateAndFixOrbSecrets(settings.noitaFolderPath);
-
   try {
     // orb系
     const orbSecretElements = getOrbSecretElements();
@@ -51,6 +50,34 @@ const execute = async (settings: Settings): Promise<void> => {
   }
 };
 
-export const saveFlagsEvent = {
+const deleteBonesNew = async (settings: Settings): Promise<void> => {
+  if (!settings.deleteBonesNew) {
+    return;
+  }
+
+  try {
+    const bonesNewFolderPath = await path.join(settings.noitaFolderPath, NOITA_FLAG_EDITOR.BONES_NEW_PATH);
+    const entries = await readDir(bonesNewFolderPath);
+    const fileNames = entries.map((entry) => entry.name).filter((name) => name !== undefined) as string[];
+
+    fileNames.forEach(async (fileName) => {
+      const isTargetFile = /item[0-9]+\.xml/.test(fileName);
+      if (isTargetFile) {
+        const targetFilePath = await path.join(bonesNewFolderPath, fileName);
+        await remove(targetFilePath);
+        console.info(`delete ${targetFilePath}`);
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching filenames:", error);
+  }
+};
+
+const execute = async (settings: Settings): Promise<void> => {
+  await rewriteFlags(settings);
+  await deleteBonesNew(settings);
+};
+
+export const rewriteEvent = {
   execute,
 };

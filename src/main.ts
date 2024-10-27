@@ -8,17 +8,25 @@ import "simple-notify/dist/simple-notify.css";
 import { endWatchingEvent } from "./events/end-watching-event";
 import { loadFlagsEvent } from "./events/load-flags-event";
 import { noitaFolderSelectEvent } from "./events/noita-folder-select-event";
-import { saveFlagsEvent } from "./events/save-flags-event";
+import { rewriteEvent } from "./events/rewrite-event";
 import { startWatchingEvent } from "./events/start-watching-event";
+import { deleteBonesNewEvent } from "./events/delete-bones-new-event";
 
 const init = async () => {
   const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
-  await loadAndSetFlags(settings.noitaFolderPath);
 
+  // Set Target Folder
   if (settings.noitaFolderPath != null) {
     const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
     selectedNoitaFolderPathElement.textContent = settings.noitaFolderPath;
   }
+
+  // Set Unlock Flags
+  await loadAndSetFlags(settings.noitaFolderPath);
+
+  // Set Bones New Flags
+  const deleteBonesNewElement = document.querySelector("#deleteBonesNew") as HTMLInputElement;
+  deleteBonesNewElement.checked = settings.deleteBonesNew;
 };
 
 const main = async () => {
@@ -29,16 +37,18 @@ const main = async () => {
   const monitorStatusElement = document.querySelector("#monitorStatus") as HTMLSpanElement;
   // rewrite flags
   const loadFlagsElement = document.querySelector("#loadFlags") as HTMLButtonElement;
-  const saveFlagsElement = document.querySelector("#saveFlags") as HTMLButtonElement;
+  const rewriteElement = document.querySelector("#rewriteFlags") as HTMLButtonElement;
   // watch memory
   const startWatchingElement = document.querySelector("#startWatching") as HTMLButtonElement;
   const endWatchingElement = document.querySelector("#endWatching") as HTMLButtonElement;
   // folder setting
   const noitaFolderSelectElement = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
+  // delete bones_new
+  const deleteBonesNewElement = document.querySelector("#deleteBonesNew") as HTMLInputElement;
 
   const saveFlagsAction = async () => {
     const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
-    await saveFlagsEvent.execute(settings);
+    await rewriteEvent.execute(settings);
     lastExecutedLogElement.textContent = now();
   };
 
@@ -58,9 +68,10 @@ const main = async () => {
       });
     }
   });
-  saveFlagsElement.addEventListener("click", async () => {
+  rewriteElement.addEventListener("click", async () => {
     try {
-      await saveFlagsAction();
+      const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
+      await rewriteEvent.execute(settings);
       new Notify({
         text: "書き換えに成功しました",
       });
@@ -93,6 +104,11 @@ const main = async () => {
     const newFolderPath = await noitaFolderSelectEvent.execute();
     const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
     selectedNoitaFolderPathElement.textContent = newFolderPath;
+  });
+
+  // settings - delete bones_new
+  deleteBonesNewElement.addEventListener("change", async () => {
+    await deleteBonesNewEvent.execute(deleteBonesNewElement);
   });
 };
 

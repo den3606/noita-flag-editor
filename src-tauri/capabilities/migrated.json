@@ -16,6 +16,7 @@
       "identifier": "fs:scope",
       "allow": ["**"]
     },
+    "dialog:allow-message",
     "dialog:allow-open"
   ]
 }

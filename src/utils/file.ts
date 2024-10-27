@@ -1,7 +1,7 @@
 import {} from "@tauri-apps/api";
 import type { OpenDialogOptions } from "@tauri-apps/plugin-dialog";
-import { BaseDirectory, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 import * as dialog from "@tauri-apps/plugin-dialog";
+import { BaseDirectory, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
 
 export interface FileItem {
   filePath: string;

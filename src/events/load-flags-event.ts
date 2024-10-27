@@ -1,8 +1,7 @@
-import type { Settings } from "../interfaces/setting";
 import { loadAndSetFlags } from "../secret";
 
-const execute = async (settings: Settings): Promise<void> => {
-  await loadAndSetFlags(settings);
+const execute = async (noitaFolderPath: string): Promise<void> => {
+  await loadAndSetFlags(noitaFolderPath);
 };
 
 export const loadFlagsEvent = {

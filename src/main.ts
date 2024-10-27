@@ -11,11 +11,18 @@ import { noitaFolderSelectEvent } from "./events/noita-folder-select-event";
 import { saveFlagsEvent } from "./events/save-flags-event";
 import { startWatchingEvent } from "./events/start-watching-event";
 
-async function main() {
+const init = async () => {
   const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
-  let noitaFolderPath = settings.noitaFolderPath;
+  await loadAndSetFlags(settings.noitaFolderPath);
 
-  await loadAndSetFlags(settings);
+  if (settings.noitaFolderPath != null) {
+    const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
+    selectedNoitaFolderPathElement.textContent = settings.noitaFolderPath;
+  }
+};
+
+const main = async () => {
+  init();
 
   // tags
   const lastExecutedLogElement = document.querySelector("#lastExecutedLog") as HTMLSpanElement;
@@ -28,25 +35,41 @@ async function main() {
   const endWatchingElement = document.querySelector("#endWatching") as HTMLButtonElement;
   // folder setting
   const noitaFolderSelectElement = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
-  const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
 
   const saveFlagsAction = async () => {
+    const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
     await saveFlagsEvent.execute(settings);
     lastExecutedLogElement.textContent = now();
   };
 
+  /* Events */
   // execute
   loadFlagsElement.addEventListener("click", async () => {
-    loadFlagsEvent.execute(settings);
-    new Notify({
-      text: "読み込みに成功しました",
-    });
+    try {
+      const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
+      loadFlagsEvent.execute(settings.noitaFolderPath);
+      new Notify({
+        text: "読み込みに成功しました",
+      });
+    } catch (_e) {
+      new Notify({
+        status: "error",
+        text: "読み込みに失敗しました",
+      });
+    }
   });
   saveFlagsElement.addEventListener("click", async () => {
-    await saveFlagsAction();
-    new Notify({
-      text: "書き換えに成功しました",
-    });
+    try {
+      await saveFlagsAction();
+      new Notify({
+        text: "書き換えに成功しました",
+      });
+    } catch (_e) {
+      new Notify({
+        status: "error",
+        text: "書き換えに失敗しました",
+      });
+    }
   });
 
   // settings - watch memory
@@ -68,14 +91,10 @@ async function main() {
   // settings - folder
   noitaFolderSelectElement.addEventListener("click", async () => {
     const newFolderPath = await noitaFolderSelectEvent.execute();
+    const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
     selectedNoitaFolderPathElement.textContent = newFolderPath;
-    noitaFolderPath = newFolderPath;
   });
-
-  if (noitaFolderPath != null) {
-    selectedNoitaFolderPathElement.textContent = noitaFolderPath;
-  }
-}
+};
 
 window.addEventListener("DOMContentLoaded", async () => {
   await main().catch(console.error);

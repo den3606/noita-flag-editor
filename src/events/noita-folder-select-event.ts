@@ -3,7 +3,7 @@ import type { Settings } from "../interfaces/setting";
 import { loadJsonFile, saveJsonFile } from "../utils/file";
 import { selectFolder } from "../utils/folder";
 
-const execute = async () => {
+const execute = async (): Promise<string> => {
   const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
   const selectedFolderPath = await selectFolder();
   settings.noitaFolderPath = selectedFolderPath;

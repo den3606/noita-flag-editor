@@ -10,13 +10,13 @@
 }
 
 .icon::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -0.05em;
   left: -0.05em;
   width: 1.4em;
   height: 1.4em;
-  background-image: url('./assets/noita/full_inventory_box.png');
+  background-image: url("./assets/noita/full_inventory_box.png");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -24,320 +24,320 @@
 }
 
 .icon-all_acid {
-  background-image: url('./assets/noita/all_acid.png');
+  background-image: url("./assets/noita/all_acid.png");
 }
 .icon-all_blackholes {
-  background-image: url('./assets/noita/all_blackholes.png');
+  background-image: url("./assets/noita/all_blackholes.png");
 }
 .icon-all_deathcrosses {
-  background-image: url('./assets/noita/all_deathcrosses.png');
+  background-image: url("./assets/noita/all_deathcrosses.png");
 }
 .icon-all_discs {
-  background-image: url('./assets/noita/all_discs.png');
+  background-image: url("./assets/noita/all_discs.png");
 }
 .icon-all_nukes {
-  background-image: url('./assets/noita/all_nukes.png');
+  background-image: url("./assets/noita/all_nukes.png");
 }
 .icon-all_rockets {
-  background-image: url('./assets/noita/all_rockets.png');
+  background-image: url("./assets/noita/all_rockets.png");
 }
 .icon-all_spells {
-  background-image: url('./assets/noita/all_spells.png');
+  background-image: url("./assets/noita/all_spells.png");
 }
 .icon-alpha {
-  background-image: url('./assets/noita/alpha.png');
+  background-image: url("./assets/noita/alpha.png");
 }
 .icon-black_hole_giga {
-  background-image: url('./assets/noita/black_hole_giga.png');
+  background-image: url("./assets/noita/black_hole_giga.png");
 }
 .icon-bomb_holy_giga {
-  background-image: url('./assets/noita/bomb_holy_giga.png');
+  background-image: url("./assets/noita/bomb_holy_giga.png");
 }
 .icon-bomb_holy {
-  background-image: url('./assets/noita/bomb_holy.png');
+  background-image: url("./assets/noita/bomb_holy.png");
 }
 .icon-burst_8 {
-  background-image: url('./assets/noita/burst_8.png');
+  background-image: url("./assets/noita/burst_8.png");
 }
 .icon-burst_x {
-  background-image: url('./assets/noita/burst_x.png');
+  background-image: url("./assets/noita/burst_x.png");
 }
 .icon-cessation {
-  background-image: url('./assets/noita/cessation.png');
+  background-image: url("./assets/noita/cessation.png");
 }
 .icon-cloud_thunder {
-  background-image: url('./assets/noita/cloud_thunder.png');
+  background-image: url("./assets/noita/cloud_thunder.png");
 }
 .icon-colour_blue {
-  background-image: url('./assets/noita/colour_blue.png');
+  background-image: url("./assets/noita/colour_blue.png");
 }
 .icon-colour_green {
-  background-image: url('./assets/noita/colour_green.png');
+  background-image: url("./assets/noita/colour_green.png");
 }
 .icon-colour_invis {
-  background-image: url('./assets/noita/colour_invis.png');
+  background-image: url("./assets/noita/colour_invis.png");
 }
 .icon-colour_orange {
-  background-image: url('./assets/noita/colour_orange.png');
+  background-image: url("./assets/noita/colour_orange.png");
 }
 .icon-colour_purple {
-  background-image: url('./assets/noita/colour_purple.png');
+  background-image: url("./assets/noita/colour_purple.png");
 }
 .icon-colour_rainbow {
-  background-image: url('./assets/noita/colour_rainbow.png');
+  background-image: url("./assets/noita/colour_rainbow.png");
 }
 .icon-colour_red {
-  background-image: url('./assets/noita/colour_red.png');
+  background-image: url("./assets/noita/colour_red.png");
 }
 .icon-colour_yellow {
-  background-image: url('./assets/noita/colour_yellow.png');
+  background-image: url("./assets/noita/colour_yellow.png");
 }
 .icon-crumbling_earth {
-  background-image: url('./assets/noita/crumbling_earth.png');
+  background-image: url("./assets/noita/crumbling_earth.png");
 }
 .icon-damage_random {
-  background-image: url('./assets/noita/damage_random.png');
+  background-image: url("./assets/noita/damage_random.png");
 }
 .icon-death_trigger {
-  background-image: url('./assets/noita/death_trigger.png');
+  background-image: url("./assets/noita/death_trigger.png");
 }
 .icon-destruction {
-  background-image: url('./assets/noita/destruction.png');
+  background-image: url("./assets/noita/destruction.png");
 }
 .icon-divide_2 {
-  background-image: url('./assets/noita/divide_2.png');
+  background-image: url("./assets/noita/divide_2.png");
 }
 .icon-divide_3 {
-  background-image: url('./assets/noita/divide_3.png');
+  background-image: url("./assets/noita/divide_3.png");
 }
 .icon-divide_4 {
-  background-image: url('./assets/noita/divide_4.png');
+  background-image: url("./assets/noita/divide_4.png");
 }
 .icon-divide_10 {
-  background-image: url('./assets/noita/divide_10.png');
+  background-image: url("./assets/noita/divide_10.png");
 }
 .icon-draw_3_random {
-  background-image: url('./assets/noita/draw_3_random.png');
+  background-image: url("./assets/noita/draw_3_random.png");
 }
 .icon-draw_random_x3 {
-  background-image: url('./assets/noita/draw_random_x3.png');
+  background-image: url("./assets/noita/draw_random_x3.png");
 }
 .icon-draw_random {
-  background-image: url('./assets/noita/draw_random.png');
+  background-image: url("./assets/noita/draw_random.png");
 }
 .icon-duck_2 {
-  background-image: url('./assets/noita/duck_2.png');
+  background-image: url("./assets/noita/duck_2.png");
 }
 .icon-duplicate {
-  background-image: url('./assets/noita/duplicate.png');
+  background-image: url("./assets/noita/duplicate.png");
 }
 .icon-exploding_deer {
-  background-image: url('./assets/noita/exploding_deer.png');
+  background-image: url("./assets/noita/exploding_deer.png");
 }
 .icon-fireworks {
-  background-image: url('./assets/noita/fireworks.png');
+  background-image: url("./assets/noita/fireworks.png");
 }
 .icon-fish {
-  background-image: url('./assets/noita/fish.png');
+  background-image: url("./assets/noita/fish.png");
 }
 .icon-full_inventory_box {
-  background-image: url('./assets/noita/full_inventory_box.png');
+  background-image: url("./assets/noita/full_inventory_box.png");
 }
 .icon-gamma {
-  background-image: url('./assets/noita/gamma.png');
+  background-image: url("./assets/noita/gamma.png");
 }
 .icon-homing_wand {
-  background-image: url('./assets/noita/homing_wand.png');
+  background-image: url("./assets/noita/homing_wand.png");
 }
 .icon-if_else {
-  background-image: url('./assets/noita/if_else.png');
+  background-image: url("./assets/noita/if_else.png");
 }
 .icon-if_end {
-  background-image: url('./assets/noita/if_end.png');
+  background-image: url("./assets/noita/if_end.png");
 }
 .icon-if_enemy {
-  background-image: url('./assets/noita/if_enemy.png');
+  background-image: url("./assets/noita/if_enemy.png");
 }
 .icon-if_half {
-  background-image: url('./assets/noita/if_half.png');
+  background-image: url("./assets/noita/if_half.png");
 }
 .icon-if_hp {
-  background-image: url('./assets/noita/if_hp.png');
+  background-image: url("./assets/noita/if_hp.png");
 }
 .icon-if_projectile {
-  background-image: url('./assets/noita/if_projectile.png');
+  background-image: url("./assets/noita/if_projectile.png");
 }
 .icon-kantele_a {
-  background-image: url('./assets/noita/kantele_a.png');
+  background-image: url("./assets/noita/kantele_a.png");
 }
 .icon-kantele_a2 {
-  background-image: url('./assets/noita/kantele_a2.png');
+  background-image: url("./assets/noita/kantele_a2.png");
 }
 .icon-kantele_b {
-  background-image: url('./assets/noita/kantele_b.png');
+  background-image: url("./assets/noita/kantele_b.png");
 }
 .icon-kantele_c {
-  background-image: url('./assets/noita/kantele_c.png');
+  background-image: url("./assets/noita/kantele_c.png");
 }
 .icon-kantele_d {
-  background-image: url('./assets/noita/kantele_d.png');
+  background-image: url("./assets/noita/kantele_d.png");
 }
 .icon-kantele_dis {
-  background-image: url('./assets/noita/kantele_dis.png');
+  background-image: url("./assets/noita/kantele_dis.png");
 }
 .icon-kantele_e {
-  background-image: url('./assets/noita/kantele_e.png');
+  background-image: url("./assets/noita/kantele_e.png");
 }
 .icon-kantele_f {
-  background-image: url('./assets/noita/kantele_f.png');
+  background-image: url("./assets/noita/kantele_f.png");
 }
 .icon-kantele_g {
-  background-image: url('./assets/noita/kantele_g.png');
+  background-image: url("./assets/noita/kantele_g.png");
 }
 .icon-kantele_gsharp {
-  background-image: url('./assets/noita/kantele_gsharp.png');
+  background-image: url("./assets/noita/kantele_gsharp.png");
 }
 .icon-larpa_chaos_2 {
-  background-image: url('./assets/noita/larpa_chaos_2.png');
+  background-image: url("./assets/noita/larpa_chaos_2.png");
 }
 .icon-machinegun_bullet {
-  background-image: url('./assets/noita/machinegun_bullet.png');
+  background-image: url("./assets/noita/machinegun_bullet.png");
 }
 .icon-material_cement {
-  background-image: url('./assets/noita/material_cement.png');
+  background-image: url("./assets/noita/material_cement.png");
 }
 .icon-meteor_rain {
-  background-image: url('./assets/noita/meteor_rain.png');
+  background-image: url("./assets/noita/meteor_rain.png");
 }
 .icon-mu {
-  background-image: url('./assets/noita/mu.png');
+  background-image: url("./assets/noita/mu.png");
 }
 .icon-necromancy {
-  background-image: url('./assets/noita/necromancy.png');
+  background-image: url("./assets/noita/necromancy.png");
 }
 .icon-nolla {
-  background-image: url('./assets/noita/nolla.png');
+  background-image: url("./assets/noita/nolla.png");
 }
 .icon-nuke_giga {
-  background-image: url('./assets/noita/nuke_giga.png');
+  background-image: url("./assets/noita/nuke_giga.png");
 }
 .icon-nuke {
-  background-image: url('./assets/noita/nuke.png');
+  background-image: url("./assets/noita/nuke.png");
 }
 .icon-ocarina_a {
-  background-image: url('./assets/noita/ocarina_a.png');
+  background-image: url("./assets/noita/ocarina_a.png");
 }
 .icon-ocarina_a2 {
-  background-image: url('./assets/noita/ocarina_a2.png');
+  background-image: url("./assets/noita/ocarina_a2.png");
 }
 .icon-ocarina_b {
-  background-image: url('./assets/noita/ocarina_b.png');
+  background-image: url("./assets/noita/ocarina_b.png");
 }
 .icon-ocarina_c {
-  background-image: url('./assets/noita/ocarina_c.png');
+  background-image: url("./assets/noita/ocarina_c.png");
 }
 .icon-ocarina_d {
-  background-image: url('./assets/noita/ocarina_d.png');
+  background-image: url("./assets/noita/ocarina_d.png");
 }
 .icon-ocarina_e {
-  background-image: url('./assets/noita/ocarina_e.png');
+  background-image: url("./assets/noita/ocarina_e.png");
 }
 .icon-ocarina_f {
-  background-image: url('./assets/noita/ocarina_f.png');
+  background-image: url("./assets/noita/ocarina_f.png");
 }
 .icon-ocarina_gsharp {
-  background-image: url('./assets/noita/ocarina_gsharp.png');
+  background-image: url("./assets/noita/ocarina_gsharp.png");
 }
 .icon-omega_disc_bullet {
-  background-image: url('./assets/noita/omega_disc_bullet.png');
+  background-image: url("./assets/noita/omega_disc_bullet.png");
 }
 .icon-omega {
-  background-image: url('./assets/noita/omega.png');
+  background-image: url("./assets/noita/omega.png");
 }
 .icon-orbit_discs {
-  background-image: url('./assets/noita/orbit_discs.png');
+  background-image: url("./assets/noita/orbit_discs.png");
 }
 .icon-orbit_fireballs {
-  background-image: url('./assets/noita/orbit_fireballs.png');
+  background-image: url("./assets/noita/orbit_fireballs.png");
 }
 .icon-orbit_larpa {
-  background-image: url('./assets/noita/orbit_larpa.png');
+  background-image: url("./assets/noita/orbit_larpa.png");
 }
 .icon-orbit_lasers {
-  background-image: url('./assets/noita/orbit_lasers.png');
+  background-image: url("./assets/noita/orbit_lasers.png");
 }
 .icon-orbit_nukes {
-  background-image: url('./assets/noita/orbit_nukes.png');
+  background-image: url("./assets/noita/orbit_nukes.png");
 }
 .icon-phi {
-  background-image: url('./assets/noita/phi.png');
+  background-image: url("./assets/noita/phi.png");
 }
 .icon-rainbow_trail {
-  background-image: url('./assets/noita/rainbow_trail.png');
+  background-image: url("./assets/noita/rainbow_trail.png");
 }
 .icon-random_modifier {
-  background-image: url('./assets/noita/random_modifier.png');
+  background-image: url("./assets/noita/random_modifier.png");
 }
 .icon-random_projectile {
-  background-image: url('./assets/noita/random_projectile.png');
+  background-image: url("./assets/noita/random_projectile.png");
 }
 .icon-random_spell {
-  background-image: url('./assets/noita/random_spell.png');
+  background-image: url("./assets/noita/random_spell.png");
 }
 .icon-random_static_projectile {
-  background-image: url('./assets/noita/random_static_projectile.png');
+  background-image: url("./assets/noita/random_static_projectile.png");
 }
 .icon-reset {
-  background-image: url('./assets/noita/reset.png');
+  background-image: url("./assets/noita/reset.png");
 }
 .icon-sea_lava {
-  background-image: url('./assets/noita/sea_lava.png');
+  background-image: url("./assets/noita/sea_lava.png");
 }
 .icon-sea_mimic {
-  background-image: url('./assets/noita/sea_mimic.png');
+  background-image: url("./assets/noita/sea_mimic.png");
 }
 .icon-sheep {
-  background-image: url('./assets/noita/sheep.png');
+  background-image: url("./assets/noita/sheep.png");
 }
 .icon-sigma {
-  background-image: url('./assets/noita/sigma.png');
+  background-image: url("./assets/noita/sigma.png");
 }
 .icon-slow_but_steady {
-  background-image: url('./assets/noita/slow_but_steady.png');
+  background-image: url("./assets/noita/slow_but_steady.png");
 }
 .icon-spiral_shot {
-  background-image: url('./assets/noita/spiral_shot.png');
+  background-image: url("./assets/noita/spiral_shot.png");
 }
 .icon-tau {
-  background-image: url('./assets/noita/tau.png');
+  background-image: url("./assets/noita/tau.png");
 }
 .icon-tentacle_timer {
-  background-image: url('./assets/noita/tentacle_timer.png');
+  background-image: url("./assets/noita/tentacle_timer.png");
 }
 .icon-tentacle {
-  background-image: url('./assets/noita/tentacle.png');
+  background-image: url("./assets/noita/tentacle.png");
 }
 .icon-timer {
-  background-image: url('./assets/noita/timer.png');
+  background-image: url("./assets/noita/timer.png");
 }
 .icon-touch_grass {
-  background-image: url('./assets/noita/touch_grass.png');
+  background-image: url("./assets/noita/touch_grass.png");
 }
 .icon-touch_piss {
-  background-image: url('./assets/noita/touch_piss.png');
+  background-image: url("./assets/noita/touch_piss.png");
 }
 .icon-trigger {
-  background-image: url('./assets/noita/trigger.png');
+  background-image: url("./assets/noita/trigger.png");
 }
 .icon-white_hole_giga {
-  background-image: url('./assets/noita/white_hole_giga.png');
+  background-image: url("./assets/noita/white_hole_giga.png");
 }
 .icon-worm_rain {
-  background-image: url('./assets/noita/worm_rain.png');
+  background-image: url("./assets/noita/worm_rain.png");
 }
 .icon-worm {
-  background-image: url('./assets/noita/worm.png');
+  background-image: url("./assets/noita/worm.png");
 }
 .icon-zeta {
-  background-image: url('./assets/noita/zeta.png');
+  background-image: url("./assets/noita/zeta.png");
 }

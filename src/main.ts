@@ -1,5 +1,5 @@
-import Notify from "simple-notify";
 import { getVersion } from "@tauri-apps/api/app";
+import Notify from "simple-notify";
 import { NOITA_FLAG_EDITOR } from "./const";
 import type { Settings } from "./interfaces/setting";
 import { loadAndSetFlags } from "./secret";

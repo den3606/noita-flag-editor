@@ -2,7 +2,7 @@ export const NOITA_FLAG_EDITOR = {
   SETTINGS_FILE: "settings.json",
   ORBS_NEW_PATH: "save00/persistent/orbs_new",
   FLAGS_PATH: "save00/persistent/flags",
-  BONES_NEW_PATH: "save00/persistent/bones_new"
+  BONES_NEW_PATH: "save00/persistent/bones_new",
 } as const;
 
 export const MONITOR_STATUS = {

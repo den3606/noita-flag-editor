@@ -5,12 +5,12 @@ import { loadAndSetFlags } from "./secret";
 import { now } from "./utils/date";
 import { loadJsonFile } from "./utils/file";
 import "simple-notify/dist/simple-notify.css";
+import { deleteBonesNewEvent } from "./events/delete-bones-new-event";
 import { endWatchingEvent } from "./events/end-watching-event";
 import { loadFlagsEvent } from "./events/load-flags-event";
 import { noitaFolderSelectEvent } from "./events/noita-folder-select-event";
 import { rewriteEvent } from "./events/rewrite-event";
 import { startWatchingEvent } from "./events/start-watching-event";
-import { deleteBonesNewEvent } from "./events/delete-bones-new-event";
 
 const init = async () => {
   const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;

@@ -1,4 +1,5 @@
 import { exists, writeTextFile } from "@tauri-apps/plugin-fs";
+import path from "path-browserify";
 import {
   NOITA_FLAG_EDITOR,
   cardUnlockedFlagList,
@@ -8,7 +9,6 @@ import {
 } from "./const";
 import { getOrbSecretElements, getSecretElements } from "./get-html-element";
 import type { CardUnlockedFlags, OrbCardUnlockedFlags, OrbSecretMap, SecretMap } from "./interfaces/noita";
-import path from "path-browserify";
 
 export const validateAndFixOrbSecrets = async (noitaFolderPath: string): Promise<void> => {
   console.log(`noitaFolderPath: ${noitaFolderPath}`);

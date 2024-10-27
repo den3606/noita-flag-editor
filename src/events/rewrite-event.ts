@@ -1,5 +1,5 @@
-import path from "path-browserify";
 import { exists, readDir, remove, writeTextFile } from "@tauri-apps/plugin-fs";
+import path from "path-browserify";
 import { NOITA_FLAG_EDITOR, orbsCardMappingList } from "../const";
 import { getOrbSecretElements, getSecretElements } from "../get-html-element";
 import type { Settings } from "../interfaces/setting";

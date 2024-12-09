@@ -6,8 +6,9 @@ export const NOITA_FLAG_EDITOR = {
 } as const;
 
 export const MONITOR_STATUS = {
+  WAITING: "未接続",
   CONNECTING: "接続待機中",
-  CONNECTED: "接続中",
+  CONNECTED: "接続済",
   COMPLETED: "接続終了",
   TIMEOUT: "接続切れ",
   UNDEFINED: "未定義レスポンス",

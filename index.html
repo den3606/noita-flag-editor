@@ -19,6 +19,7 @@
       fluentAccordion,
       fluentAccordionItem,
       fluentCard,
+      fluentTooltip,
     } from "@fluentui/web-components";
 
     provideFluentDesignSystem()
@@ -29,6 +30,7 @@
         fluentAccordion(),
         fluentAccordionItem(),
         fluentCard(),
+        fluentTooltip()
       );
   </script>
 </head>
@@ -37,7 +39,39 @@
 
   <h1>Noita Flag Editor <span id="version"></span></h1>
   <fluent-badge appearance="accent">最終実行ログ：<span id="lastExecutedLog">未実行</span></fluent-badge>
-  <fluent-badge appearance="accent">メモリ監視状況：<span id="monitorStatus">未接続</span></fluent-badge>
+  <span id="monitorStatusBadge" style="position:relative">
+    <fluent-tooltip anchor="monitorStatusBadge" style="position:absolute; left: 100%; top:1.5em;">
+      <table>
+        <tbody style="text-align: left;">
+          <tr>
+            <th scope="row">未接続</th>
+            <td>接続をしていない状態</td>
+          </tr>
+          <tr>
+            <th scope="row">接続待機中</th>
+            <td>接続を試みている状態</td>
+          </tr>
+          <tr>
+            <th scope="row">接続済</th>
+            <td>接続が成功し、Noitaを監視している状態</td>
+          </tr>
+          <tr>
+            <th scope="row">接続終了</th>
+            <td>正常に接続を終えられている状態</td>
+          </tr>
+          <tr>
+            <th scope="row">接続切れ</th>
+            <td>何かしらの問題が発生し、接続が切れた状態<br />たとえば、Noitaクライアントを見つけられなかったときなど</td>
+          </tr>
+        </tbody>
+      </table>
+    </fluent-tooltip>
+    <fluent-badge appearance="accent">メモリ監視状況：
+      <span id="monitorStatus">未接続</span>
+    </fluent-badge>
+  </span>
+
+
 
   <hr />
   <fluent-card class="card">
@@ -58,7 +92,7 @@
         <br />本アプリのチェックに合わせてNoitaのファイルが書き換えられます。
         <br /><u>Noitaのバージョンが変わると、動作しない可能性があります。</u>
         <br />Noitaを起動してから「自動書き換え ON」を押してください。
-        <br />上部にある「メモリ監視状況」が「接続済み」になっていれば成功です。
+        <br />上部にある「メモリ監視状況」が「接続済」になっていれば成功です。
       </p>
       <fluent-button id="startWatching" appearance="outline">自動書き換え ON</fluent-button>
       <fluent-button id="endWatching" disabled>自動書き換え OFF</fluent-button>

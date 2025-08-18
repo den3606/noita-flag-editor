@@ -18,7 +18,7 @@
   },
   "productName": "noita-flag-editor",
   "mainBinaryName": "noita-flag-editor",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "identifier": "dev.den3606.noita-flag-editor",
   "plugins": {},
   "app": {

@@ -1,7 +1,6 @@
 {
   "name": "noita-flag-editor",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "npx vite",
@@ -13,20 +12,20 @@
   },
   "dependencies": {
     "@fluentui/web-components": "^2.6.1",
-    "@tauri-apps/api": "^2.0.0",
-    "@tauri-apps/plugin-dialog": "^2.0.1",
-    "@tauri-apps/plugin-fs": "^2.0.0",
+    "@tauri-apps/api": "^2.8.0",
+    "@tauri-apps/plugin-dialog": "^2.3.2",
+    "@tauri-apps/plugin-fs": "^2.4.1",
     "path-browserify": "^1.0.1",
-    "simple-notify": "^1.0.5",
-    "typescript": "^5.6.3"
+    "simple-notify": "^1.0.6",
+    "typescript": "^5.9.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@tauri-apps/cli": "^2.0.4",
-    "@types/node": "^22.8.1",
+    "@biomejs/biome": "2.2.0",
+    "@tauri-apps/cli": "^2.7.1",
+    "@types/node": "^24.3.0",
     "@types/path-browserify": "^1.0.3",
-    "globals": "^15.11.0",
-    "lefthook": "^1.8.1",
-    "vite": "^5.0.0"
+    "globals": "^16.3.0",
+    "lefthook": "^1.12.3",
+    "vite": "^7.1.2"
   }
 }

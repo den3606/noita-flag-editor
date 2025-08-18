@@ -64,7 +64,7 @@ enum MonitorStatus {
 
 fn monitor_game_status(tx: std::sync::mpsc::Sender<MonitorStatus>) -> io::Result<()> {
     let process_name = "noita.exe";
-    let death_address: u32 = target_address::ADDRESS_20240812.death;
+    let death_address: u32 = target_address::ADDRESS_20250125.death;
 
     let mut start_time = Instant::now();
     let mut updated = false;

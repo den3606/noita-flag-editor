@@ -14,3 +14,8 @@ pub const ADDRESS_20240812: Address = Address {
     death: 0xE06764,
     death_count: 0xE06AD8,
 };
+
+pub const ADDRESS_20250125: Address = Address {
+    death: 0xE08784,
+    death_count: 0xE08AF8,
+};

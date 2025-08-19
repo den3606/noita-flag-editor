@@ -4,7 +4,7 @@ import { loadAndSetFlags } from "./secret";
 import { loadSettingsFile } from "./utils/file";
 import "simple-notify/dist/simple-notify.css";
 import { deleteBonesNewEvent } from "./events/delete-bones-new-event";
-import { endWatchingAutoRewriteEvent } from "./events/end-watching-auto-rewrite-event copy";
+import { endWatchingAutoRewriteEvent } from "./events/end-watching-auto-rewrite-event";
 import { loadFlagsEvent } from "./events/load-flags-event";
 import { manualRewriteEvent } from "./events/manual-rewrite-event";
 import { noitaFolderSelectEvent } from "./events/noita-folder-select-event";

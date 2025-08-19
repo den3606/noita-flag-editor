@@ -2,7 +2,7 @@ import { exists, readDir, remove, writeTextFile } from "@tauri-apps/plugin-fs";
 import path from "path-browserify";
 import { NOITA_FLAG_EDITOR, orbsCardMappingList } from "./const";
 import { getOrbSecretElements, getSecretElements } from "./get-html-element";
-import { Settings, ValidatedSettingsType } from "./models/settings";
+import { ValidatedSettingsType } from "./models/settings";
 import { validateAndFixOrbSecrets } from "./secret";
 
 const rewriteFlags = async (noitaFolderPath: string): Promise<void> => {

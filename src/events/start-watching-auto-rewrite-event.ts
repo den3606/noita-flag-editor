@@ -16,10 +16,35 @@ export class StartWatchingAutoRewriteEvent implements FlagEditorEvent {
 
     startWatchingElement.addEventListener("click", async (event: Event) => {
       event.preventDefault();
+      const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
+
+      const validSettings = (() => {
+        try {
+          return settings.validate();
+        } catch (e) {
+          const message = Settings.getTargetErrorMessage(e, "noitaFolderPath");
+          if (message) {
+            console.error(message);
+            new Notify({
+              status: "error",
+              text: message,
+            });
+          } else {
+            console.error(e);
+            new Notify({
+              status: "error",
+              text: "想定されていないエラーです。<br>管理者へ連絡してください",
+            });
+          }
+        }
+      })();
+
+      if (validSettings == null) {
+        return;
+      }
+
       await startWatching.execute(startWatchingElement, endWatchingElement, monitorStatusElement, async () => {
         try {
-          const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
-          const validSettings = settings.validate();
           await rewriteFiles.execute(validSettings);
           lastExecutedLogElement.textContent = now();
           new Notify({

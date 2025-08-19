@@ -1,5 +1,5 @@
 import path from "path-browserify";
-import z, { ZodError, ZodIssue } from "zod";
+import z, { ZodError } from "zod";
 
 // JSONファイルから読み込む生の設定データの型
 export const rawSettingsZ = z.object({
@@ -19,11 +19,21 @@ export type DefaultSettings = z.infer<typeof defaultSettingsZ>;
 
 const validatedSettingsZ = z.object({
   noitaFolderPath: z
-    .string()
-    .nonempty({ message: "フォルダが設定されていません。先にフォルダを指定してください。" })
-    .refine((folderPath) => path.basename(folderPath) !== "Nolla_Games_Noita", {
-      message: "Noitaのフォルダが指定されていません。Nolla_Games_Noitaフォルダを指定してください。",
-    }),
+    .string({
+      error: "フォルダが設定されていません。<br>先にフォルダを指定してください。",
+    })
+    .nonempty({
+      error: "フォルダが設定されていません。<br>先にフォルダを指定してください。",
+    })
+    .refine(
+      (folderPath) => {
+        const normalized = folderPath.replace(/\\/g, "/");
+        return path.basename(normalized) === "Nolla_Games_Noita";
+      },
+      {
+        error: "Noitaのフォルダが指定されていません。<br>Nolla_Games_Noitaフォルダを指定してください。",
+      },
+    ),
   deleteBonesNew: z.boolean(),
 });
 

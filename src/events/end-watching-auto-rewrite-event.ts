@@ -1,12 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import Notify from "simple-notify";
-import { NOITA_FLAG_EDITOR } from "../const";
 import { FlagEditorEvent } from "../interfaces/event";
-import { Settings } from "../models/settings";
-import { rewriteFiles } from "../rewrite-files";
-import { startWatching } from "../start-watching";
-import { now } from "../utils/date";
-import { loadSettingsFile } from "../utils/file";
 
 export class EndWatchingAutoRewriteEvent implements FlagEditorEvent {
   load(): void {

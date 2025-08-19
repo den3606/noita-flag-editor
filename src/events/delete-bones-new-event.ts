@@ -1,9 +1,8 @@
 import { NOITA_FLAG_EDITOR } from "../const";
-import type { Settings } from "../interfaces/setting";
-import { loadJsonFile, saveJsonFile } from "../utils/file";
+import { loadSettingsFile, saveJsonFile } from "../utils/file";
 
 const execute = async (element: HTMLInputElement): Promise<void> => {
-  const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
+  const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
   settings.deleteBonesNew = element.checked;
   await saveJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE, settings);
 };

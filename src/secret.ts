@@ -1,9 +1,9 @@
 import { exists, writeTextFile } from "@tauri-apps/plugin-fs";
 import path from "path-browserify";
 import {
-  NOITA_FLAG_EDITOR,
   cardUnlockedFlagList,
   cardUnlockedFlagsRelatedOrbsNewList,
+  NOITA_FLAG_EDITOR,
   orbsCardMappingList,
   orbsNewFileNameList,
 } from "./const";

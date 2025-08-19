@@ -1,10 +1,9 @@
 import { getVersion } from "@tauri-apps/api/app";
 import Notify from "simple-notify";
 import { NOITA_FLAG_EDITOR } from "./const";
-import type { Settings } from "./interfaces/setting";
 import { loadAndSetFlags } from "./secret";
 import { now } from "./utils/date";
-import { loadJsonFile } from "./utils/file";
+import { loadSettingsFile } from "./utils/file";
 import "simple-notify/dist/simple-notify.css";
 import { deleteBonesNewEvent } from "./events/delete-bones-new-event";
 import { endWatchingEvent } from "./events/end-watching-event";
@@ -14,7 +13,7 @@ import { rewriteEvent } from "./events/rewrite-event";
 import { startWatchingEvent } from "./events/start-watching-event";
 
 const init = async () => {
-  const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
+  const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
 
   // Set Target Folder
   if (settings.noitaFolderPath != null) {
@@ -51,7 +50,7 @@ const main = async () => {
   const deleteBonesNewElement = document.querySelector("#deleteBonesNew") as HTMLInputElement;
 
   const rewriteAction = async () => {
-    const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
+    const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
     await rewriteEvent.execute(settings);
     lastExecutedLogElement.textContent = now();
   };
@@ -60,7 +59,7 @@ const main = async () => {
   // execute
   loadFlagsElement.addEventListener("click", async () => {
     try {
-      const settings: Settings = (await loadJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE)) as Settings;
+      const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
       loadFlagsEvent.execute(settings.noitaFolderPath);
       new Notify({
         text: "読み込みに成功しました",

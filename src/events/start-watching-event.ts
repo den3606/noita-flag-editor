@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { type Event as TauriEvent, listen } from "@tauri-apps/api/event";
+import { listen, type Event as TauriEvent } from "@tauri-apps/api/event";
 import Notify from "simple-notify";
 import { MONITOR_STATUS } from "../const";
 import type { GameStatus } from "../interfaces/backend";

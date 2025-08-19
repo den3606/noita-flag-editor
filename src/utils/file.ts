@@ -2,6 +2,8 @@ import {} from "@tauri-apps/api";
 import type { OpenDialogOptions } from "@tauri-apps/plugin-dialog";
 import * as dialog from "@tauri-apps/plugin-dialog";
 import { BaseDirectory, readTextFile, writeTextFile } from "@tauri-apps/plugin-fs";
+import Notify from "simple-notify";
+import { Settings, SettingsZ } from "../interfaces/setting";
 
 export interface FileItem {
   filePath: string;
@@ -99,5 +101,24 @@ export const loadJsonFile = async (filename: string): Promise<object> => {
     console.error("Failed to read file:", error);
     console.warn("ファイルがないため、空のオブジェクトを返却します");
     return {};
+  }
+};
+
+export const loadSettingsFile = async (filename: string): Promise<Settings> => {
+  try {
+    const jsonObject = await loadJsonFile(filename);
+    if (JSON.stringify(jsonObject) === "{}") {
+      console.info("設定ファイルが存在しないため、初期値でリセットします。");
+    }
+    const settings = SettingsZ.parse(jsonObject);
+
+    return settings;
+  } catch (error) {
+    console.error("Failed to read settings file: ", error);
+    new Notify({
+      status: "error",
+      text: "設定ファイルが不正なため、初期値でリセットします。",
+    });
+    return SettingsZ.parse({});
   }
 };

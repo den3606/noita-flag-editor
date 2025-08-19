@@ -85,7 +85,8 @@
         "noUnsafeDeclarationMerging": "error",
         "noUnsafeNegation": "error",
         "useGetterReturn": "error",
-        "useNamespaceKeyword": "error"
+        "useNamespaceKeyword": "error",
+        "useAwait": "error"
       }
     }
   },

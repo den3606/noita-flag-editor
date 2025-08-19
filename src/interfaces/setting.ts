@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const SettingsZ = z.object({
-  noitaFolderPath: z.string().default(""),
+  noitaFolderPath: z.string().nullable().default(null),
   deleteBonesNew: z.boolean().default(false),
 });
 

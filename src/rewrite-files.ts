@@ -1,20 +1,20 @@
 import { exists, readDir, remove, writeTextFile } from "@tauri-apps/plugin-fs";
 import path from "path-browserify";
-import { NOITA_FLAG_EDITOR, orbsCardMappingList } from "../const";
-import { getOrbSecretElements, getSecretElements } from "../get-html-element";
-import type { Settings } from "../interfaces/setting";
-import { validateAndFixOrbSecrets } from "../secret";
+import { NOITA_FLAG_EDITOR, orbsCardMappingList } from "./const";
+import { getOrbSecretElements, getSecretElements } from "./get-html-element";
+import { Settings, ValidatedSettingsType } from "./models/settings";
+import { validateAndFixOrbSecrets } from "./secret";
 
-const rewriteFlags = async (settings: Settings): Promise<void> => {
-  await validateAndFixOrbSecrets(settings.noitaFolderPath);
+const rewriteFlags = async (noitaFolderPath: string): Promise<void> => {
+  await validateAndFixOrbSecrets(noitaFolderPath);
   try {
     // orb系
     const orbSecretElements = getOrbSecretElements();
     orbSecretElements.forEach(async (checkboxElement, key) => {
       const orbFileName = orbsCardMappingList.filter((m) => m.flag === key).map((m) => m.orbsNew)[0];
 
-      const orbFilePath = await path.join(settings.noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbFileName);
-      const flagFilePath = await path.join(settings.noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, key);
+      const orbFilePath = await path.join(noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbFileName);
+      const flagFilePath = await path.join(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, key);
 
       if (checkboxElement.checked) {
         await writeTextFile(orbFilePath, "why are you looking here");
@@ -33,7 +33,7 @@ const rewriteFlags = async (settings: Settings): Promise<void> => {
     // orb外
     const secretElements = getSecretElements();
     secretElements.forEach(async (checkboxElement, key) => {
-      const flagFilePath = await path.join(settings.noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, key);
+      const flagFilePath = await path.join(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, key);
 
       if (checkboxElement.checked) {
         await writeTextFile(flagFilePath, "why are you looking here");
@@ -50,13 +50,12 @@ const rewriteFlags = async (settings: Settings): Promise<void> => {
   }
 };
 
-const deleteBonesNew = async (settings: Settings): Promise<void> => {
-  if (!settings.deleteBonesNew) {
+const deleteBonesNew = async (noitaFolderPath: string, deleteBonesNew: boolean): Promise<void> => {
+  if (!deleteBonesNew) {
     return;
   }
-
   try {
-    const bonesNewFolderPath = await path.join(settings.noitaFolderPath, NOITA_FLAG_EDITOR.BONES_NEW_PATH);
+    const bonesNewFolderPath = await path.join(noitaFolderPath, NOITA_FLAG_EDITOR.BONES_NEW_PATH);
     const entries = await readDir(bonesNewFolderPath);
     const fileNames = entries.map((entry) => entry.name).filter((name) => name !== undefined) as string[];
 
@@ -73,11 +72,11 @@ const deleteBonesNew = async (settings: Settings): Promise<void> => {
   }
 };
 
-const execute = async (settings: Settings): Promise<void> => {
-  await rewriteFlags(settings);
-  await deleteBonesNew(settings);
+const execute = async (settings: ValidatedSettingsType): Promise<void> => {
+  await rewriteFlags(settings.noitaFolderPath);
+  await deleteBonesNew(settings.noitaFolderPath, settings.deleteBonesNew);
 };
 
-export const rewriteEvent = {
+export const rewriteFiles = {
   execute,
 };

@@ -1,12 +1,17 @@
 import { NOITA_FLAG_EDITOR } from "../const";
+import { FlagEditorEvent } from "../interfaces/event";
 import { loadSettingsFile, saveJsonFile } from "../utils/file";
 
-const execute = async (element: HTMLInputElement): Promise<void> => {
-  const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
-  settings.deleteBonesNew = element.checked;
-  await saveJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE, settings);
-};
+export class DeleteBonesNewEvent implements FlagEditorEvent {
+  load(): void {
+    const deleteBonesNewElement = document.querySelector("#deleteBonesNew") as HTMLInputElement;
 
-export const deleteBonesNewEvent = {
-  execute,
-};
+    deleteBonesNewElement.addEventListener("change", async () => {
+      const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
+      settings.deleteBonesNew = deleteBonesNewElement.checked;
+      await saveJsonFile(NOITA_FLAG_EDITOR.SETTINGS_FILE, settings);
+    });
+  }
+}
+
+export const deleteBonesNewEvent = new DeleteBonesNewEvent();

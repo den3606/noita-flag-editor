@@ -16,13 +16,13 @@ export const validateAndFixOrbSecrets = async (noitaFolderPath: string): Promise
     const orbsNewExistsList = await Promise.all(
       orbsNewFileNameList.map(async (orbFileName) => {
         const filePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.ORBS_NEW_PATH, orbFileName);
-        return exists(filePath);
+        return await exists(filePath);
       }),
     );
     const flagsExistsList = await Promise.all(
       cardUnlockedFlagsRelatedOrbsNewList.map(async (orbFileName) => {
         const filePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, orbFileName);
-        return exists(filePath);
+        return await exists(filePath);
       }),
     );
 
@@ -75,7 +75,7 @@ export const loadOrbSecretsFromOriginal = async (noitaFolderPath: string): Promi
   return new Map(orbsNewExistsList);
 };
 
-export const loadSecretsFromOriginal = async (noitaFolderPath: string): Promise<SecretMap> => {
+const loadSecretsFromOriginal = async (noitaFolderPath: string): Promise<SecretMap> => {
   const flagExistsList = await Promise.all(
     cardUnlockedFlagList.map(async (flag) => {
       const flagFilePath = path.join(noitaFolderPath, NOITA_FLAG_EDITOR.FLAGS_PATH, flag);
@@ -89,10 +89,6 @@ export const loadSecretsFromOriginal = async (noitaFolderPath: string): Promise<
 };
 
 export const loadAndSetFlags = async (noitaFolderPath: string): Promise<void> => {
-  if (noitaFolderPath == null) {
-    console.warn("ファイルパスが設定されていないため、読み込めませんでした");
-    return;
-  }
   await validateAndFixOrbSecrets(noitaFolderPath);
 
   try {

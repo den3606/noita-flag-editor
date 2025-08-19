@@ -1,117 +1,58 @@
 import { getVersion } from "@tauri-apps/api/app";
-import Notify from "simple-notify";
 import { NOITA_FLAG_EDITOR } from "./const";
 import { loadAndSetFlags } from "./secret";
-import { now } from "./utils/date";
 import { loadSettingsFile } from "./utils/file";
 import "simple-notify/dist/simple-notify.css";
 import { deleteBonesNewEvent } from "./events/delete-bones-new-event";
-import { endWatchingEvent } from "./events/end-watching-event";
+import { endWatchingAutoRewriteEvent } from "./events/end-watching-auto-rewrite-event copy";
 import { loadFlagsEvent } from "./events/load-flags-event";
+import { manualRewriteEvent } from "./events/manual-rewrite-event";
 import { noitaFolderSelectEvent } from "./events/noita-folder-select-event";
-import { rewriteEvent } from "./events/rewrite-event";
-import { startWatchingEvent } from "./events/start-watching-event";
+import { startWatchingAutoRewriteEvent } from "./events/start-watching-auto-rewrite-event";
 
 const init = async () => {
-  const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
+  const version = document.querySelector("#version") as HTMLInputElement;
+  version.textContent = `v${await getVersion()}`;
 
-  // Set Target Folder
-  if (settings.noitaFolderPath != null) {
+  const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
+  try {
+    const validSettings = settings.validate();
+
+    // Set Target Folder
     const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
     selectedNoitaFolderPathElement.textContent = settings.noitaFolderPath;
-  }
 
-  // Set Unlock Flags
-  await loadAndSetFlags(settings.noitaFolderPath);
+    // Set Unlock Flags
+    await loadAndSetFlags(validSettings.noitaFolderPath);
+  } catch (error) {
+    // 初回はNoitaFolderPathが定義されていないためwarnで定義
+    console.warn(error);
+  }
 
   // Set Bones New Flags
   const deleteBonesNewElement = document.querySelector("#deleteBonesNew") as HTMLInputElement;
   deleteBonesNewElement.checked = settings.deleteBonesNew;
+};
 
-  const version = document.querySelector("#version") as HTMLInputElement;
-  version.textContent = `v${await getVersion()}`;
+const loadEvents = () => {
+  // settings - read/write
+  loadFlagsEvent.load();
+  manualRewriteEvent.load();
+
+  // settings - watch memory read/write
+  startWatchingAutoRewriteEvent.load();
+  endWatchingAutoRewriteEvent.load();
+
+  // settings - folder
+  noitaFolderSelectEvent.load();
+
+  // settings - delete bones_new
+  deleteBonesNewEvent.load();
 };
 
 const main = async () => {
-  init();
-
-  // tags
-  const lastExecutedLogElement = document.querySelector("#lastExecutedLog") as HTMLSpanElement;
-  const monitorStatusElement = document.querySelector("#monitorStatus") as HTMLSpanElement;
-  // rewrite flags
-  const loadFlagsElement = document.querySelector("#loadFlags") as HTMLButtonElement;
-  const rewriteElement = document.querySelector("#rewriteFlags") as HTMLButtonElement;
-  // watch memory
-  const startWatchingElement = document.querySelector("#startWatching") as HTMLButtonElement;
-  const endWatchingElement = document.querySelector("#endWatching") as HTMLButtonElement;
-  // folder setting
-  const noitaFolderSelectElement = document.querySelector("#noitaFolderSelect") as HTMLButtonElement;
-  // delete bones_new
-  const deleteBonesNewElement = document.querySelector("#deleteBonesNew") as HTMLInputElement;
-
-  const rewriteAction = async () => {
-    const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
-    await rewriteEvent.execute(settings);
-    lastExecutedLogElement.textContent = now();
-  };
-
-  /* Events */
-  // execute
-  loadFlagsElement.addEventListener("click", async () => {
-    try {
-      const settings = await loadSettingsFile(NOITA_FLAG_EDITOR.SETTINGS_FILE);
-      loadFlagsEvent.execute(settings.noitaFolderPath);
-      new Notify({
-        text: "読み込みに成功しました",
-      });
-    } catch (_e) {
-      new Notify({
-        status: "error",
-        text: "読み込みに失敗しました",
-      });
-    }
-  });
-  rewriteElement.addEventListener("click", async () => {
-    try {
-      await rewriteAction();
-      new Notify({
-        text: "書き換えに成功しました",
-      });
-    } catch (_e) {
-      new Notify({
-        status: "error",
-        text: "書き換えに失敗しました",
-      });
-    }
-  });
-
-  // settings - watch memory
-  startWatchingElement.addEventListener("click", async (event: Event) => {
-    event.preventDefault();
-    await startWatchingEvent.execute(startWatchingElement, endWatchingElement, monitorStatusElement, async () => {
-      await rewriteAction();
-      new Notify({
-        text: "自動的な書き換えに成功しました",
-      });
-    });
-    endWatchingElement.disabled = false;
-  });
-  endWatchingElement.addEventListener("click", async (event: Event) => {
-    endWatchingEvent.execute(event);
-    startWatchingElement.disabled = false;
-  });
-
-  // settings - folder
-  noitaFolderSelectElement.addEventListener("click", async () => {
-    const newFolderPath = await noitaFolderSelectEvent.execute();
-    const selectedNoitaFolderPathElement = document.querySelector("#selectedNoitaFolderPath") as HTMLSpanElement;
-    selectedNoitaFolderPathElement.textContent = newFolderPath;
-  });
-
-  // settings - delete bones_new
-  deleteBonesNewElement.addEventListener("change", async () => {
-    await deleteBonesNewEvent.execute(deleteBonesNewElement);
-  });
+  await init();
+  loadEvents();
 };
 
 window.addEventListener("DOMContentLoaded", async () => {

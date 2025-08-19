@@ -1,8 +1,8 @@
 import { invoke } from "@tauri-apps/api/core";
 import { listen, type Event as TauriEvent } from "@tauri-apps/api/event";
 import Notify from "simple-notify";
-import { MONITOR_STATUS } from "../const";
-import type { GameStatus } from "../interfaces/backend";
+import { MONITOR_STATUS } from "./const";
+import type { GameStatus } from "./interfaces/backend";
 
 const execute = async (
   startWatchingElement: HTMLButtonElement,
@@ -63,6 +63,6 @@ const execute = async (
   console.info(executedText);
 };
 
-export const startWatchingEvent = {
+export const startWatching = {
   execute,
 };

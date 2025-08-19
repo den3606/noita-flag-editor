@@ -1,4 +1,3 @@
-import {} from "@tauri-apps/api";
 import * as dialog from "@tauri-apps/plugin-dialog";
 
 export const selectFolder = async (): Promise<string> => {

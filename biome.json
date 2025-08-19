@@ -51,7 +51,8 @@
         "useIsNan": "error",
         "useValidForDirection": "error",
         "useYield": "error",
-        "useValidTypeof": "error"
+        "useValidTypeof": "error",
+        "noUnusedImports": "error"
       },
       "style": {
         "noNamespace": "error",

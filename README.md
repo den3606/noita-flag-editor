@@ -1,6 +1,11 @@
 # Noita Flag Editor
 
-Noita の呪文フラグ管理を行えます。
-主に All Boss RTA にて、特定の Orb や呪文の取得状況を変更するために利用します。
+Noitaの呪文フラグ管理を行えます。
+主にAll Boss RTAにて、特定のOrbや呪文の取得状況を変更するために利用します。
 
-![Application image](./app.png)
+## Screenshot
+
+![Application image](./docs/images/image1.png)
+![Application image](./docs/images/image2.png)
+![Application image](./docs/images/image3.png)
+![Application image](./docs/images/image4.png)
